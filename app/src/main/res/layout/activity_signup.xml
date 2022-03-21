@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="#EBF8F7"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SignupActivity">
 
     <TextView
-        android:id="@+id/textView_main_recipepad"
+        android:id="@+id/textView_signup_recipepad"
         android:layout_width="match_parent"
         android:layout_height="97dp"
         android:layout_marginVertical="40dp"
@@ -20,60 +20,64 @@
         android:textStyle="bold|italic" />
 
     <EditText
-        android:id="@+id/editText_main_password"
+        android:id="@+id/editText_signup_username"
         android:layout_width="361dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:backgroundTint="#AEAEAE"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
+        android:text="@string/username"
+        android:textColor="#AEAEAE" />
+
+    <EditText
+        android:id="@+id/editText_signup_email"
+        android:layout_width="361dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#AEAEAE"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="@string/email"
+        android:textColor="#AEAEAE" />
+
+    <EditText
+        android:id="@+id/editText_signup_password"
+        android:layout_width="361dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#AEAEAE"
+        android:ems="10"
+        android:inputType="text"
         android:text="@string/password"
         android:textColor="#AEAEAE" />
 
     <EditText
-        android:id="@+id/editText_main_username"
+        android:id="@+id/editText_signup_reenterpassword"
         android:layout_width="361dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
+        android:autofillHints=""
         android:backgroundTint="#AEAEAE"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/username"
+        android:inputType="text"
+        android:text="@string/re_enter_password"
         android:textColor="#AEAEAE" />
 
     <Button
-        android:id="@+id/button_main_login"
+        android:id="@+id/button_signup_signup"
         android:layout_width="357dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:layout_marginVertical="10dp"
-        android:text="@string/login"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textView_main_forgotpassword"
-        android:layout_width="353dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/forgot_password"
-        android:textColor="#1DA2BF" />
-
-    <TextView
-        android:id="@+id/textView_main_donthaveaccount"
-        android:layout_width="357dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/don_t_have_an_account_signup_here"
-        android:textColor="#000000" />
-
-    <Button
-        android:id="@+id/button_main_signup"
-        android:layout_width="357dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
         android:text="@string/sign_up"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/textView_signup_alreadyhaveaccount"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/already_have_an_account_click_here"
+        android:textColor="#1DA2BF" />
 </LinearLayout>
