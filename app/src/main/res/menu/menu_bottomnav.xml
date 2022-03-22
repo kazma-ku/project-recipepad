@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/item_bottomnav_home"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
-        android:id="@+id/item_bottomnav_searchtrending"
+        android:id="@+id/item_bottomnav_trending"
         android:icon="@drawable/ic_baseline_fire_24"
-        android:title="@string/search_trending" />
+        android:title="@string/trending" />
     <item
         android:id="@+id/item_bottomnav_upload"
         android:icon="@drawable/ic_baseline_add_24"

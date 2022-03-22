@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">COMP3717_recipe_pad</string>
+    <string name="app_name">RecipePad</string>
     <string name="recipepad">RecipePad</string>
     <string name="sign_up">Sign Up</string>
     <string name="password">Password...</string>
@@ -14,4 +14,5 @@
     <string name="search_trending">Search/Trending</string>
     <string name="upload">Upload</string>
     <string name="profile">Profile</string>
+    <string name="trending">Trending</string>
 </resources>
