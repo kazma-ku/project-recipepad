@@ -68,7 +68,7 @@
         android:text="@string/upload" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView_trending"
+        android:id="@+id/bottomNavigationView_profile"
         android:layout_width="match_parent"
         android:layout_height="86dp"
         android:layout_gravity="bottom"

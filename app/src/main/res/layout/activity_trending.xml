@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EBF8F7"
     android:orientation="vertical"
     tools:context=".TrendingActivity">
 
@@ -35,7 +36,7 @@
 
     <TextView
         android:id="@+id/textView_trending_trendingrecipes"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:gravity="center_vertical"
         android:text="@string/trending_recipes"
@@ -49,7 +50,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView_trending"
+        android:id="@+id/bottomNavigationView_profile"
         android:layout_width="match_parent"
         android:layout_height="78dp"
         android:layout_gravity="bottom"

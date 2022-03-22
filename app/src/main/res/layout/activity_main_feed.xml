@@ -14,7 +14,7 @@
         android:layout_height="520dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView_trending"
+        android:id="@+id/bottomNavigationView_profile"
         android:layout_width="match_parent"
         android:layout_height="78dp"
         android:layout_gravity="bottom"

@@ -18,7 +18,7 @@ public class MainFeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_feed);
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_profile);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
