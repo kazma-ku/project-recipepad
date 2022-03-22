@@ -10,4 +10,8 @@
     <string name="re_enter_password">Re-enter Password...</string>
     <string name="email">Email...</string>
     <string name="already_have_an_account_click_here">Already have an account? Click Here</string>
+    <string name="home">Home</string>
+    <string name="search_trending">Search/Trending</string>
+    <string name="upload">Upload</string>
+    <string name="profile">Profile</string>
 </resources>
