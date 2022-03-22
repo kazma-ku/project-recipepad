@@ -15,4 +15,14 @@
     <string name="upload">Upload</string>
     <string name="profile">Profile</string>
     <string name="trending">Trending</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Settings</string>
+    <string name="help_and_support">Help and Support</string>
+    <string name="trending_recipes">Trending Recipes</string>
+    <string name="search">Search...</string>
+    <string name="upload_images">Upload Images</string>
+    <string name="steps">Steps...</string>
+    <string name="nutritional_facts">Nutritional Facts...</string>
+    <string name="title">Title...</string>
+    <string name="ingredients">Ingredients...</string>
 </resources>

@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.COMP3717_recipe_pad">
         <activity
+            android:name=".AddRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TrendingActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainFeedActivity"
             android:exported="false" />
         <activity

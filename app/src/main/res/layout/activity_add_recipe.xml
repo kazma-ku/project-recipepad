@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBF8F7"
+    android:orientation="vertical"
+    tools:context=".AddRecipeActivity">
+
+    <ImageView
+        android:id="@+id/imageView_addrecipe_uploadimage"
+        android:layout_width="124dp"
+        android:layout_height="121dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/upload_images"
+        app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
+
+    <EditText
+        android:id="@+id/editText_addrecipe_title"
+        android:layout_width="336dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/title"
+        android:textColor="#AEAEAE" />
+
+    <EditText
+        android:id="@+id/editText_addrecipe_ingredients"
+        android:layout_width="335dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/ingredients"
+        android:textColor="#AEAEAE" />
+
+    <EditText
+        android:id="@+id/editText_addrecipe_steps"
+        android:layout_width="334dp"
+        android:layout_height="105dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textPersonName"
+        android:text="@string/steps"
+        android:textColor="#AEAEAE" />
+
+    <EditText
+        android:id="@+id/editText_addrecipes_nutritionalfacts"
+        android:layout_width="334dp"
+        android:layout_height="146dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textPersonName"
+        android:text="@string/nutritional_facts"
+        android:textColor="#AEAEAE" />
+
+    <Button
+        android:id="@+id/button_addrecipes_upload"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/upload" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView_trending"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="2dp"
+        app:menu="@menu/menu_bottomnav" />
+
+</LinearLayout>

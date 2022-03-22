@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,7 +18,7 @@ public class MainFeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_feed);
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_mainfeed);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -26,6 +27,13 @@ public class MainFeedActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
 //    @Override
