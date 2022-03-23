@@ -25,4 +25,5 @@
     <string name="nutritional_facts">Nutritional Facts...</string>
     <string name="title">Title...</string>
     <string name="ingredients">Ingredients...</string>
+    <string name="recipe_thumbnail">Recipe Thumbnail</string>
 </resources>

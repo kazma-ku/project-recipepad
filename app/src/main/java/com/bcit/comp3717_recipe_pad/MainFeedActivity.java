@@ -36,6 +36,13 @@ public class MainFeedActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+//    void SetupRecyclerView() {
+//
+    //could instead use a presenter class like in lab 7
+//    }
+
+
+
 //    @Override
 //    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 //        if(item.getItemId() == android.R.id.home)
