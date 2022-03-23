@@ -9,7 +9,7 @@
     tools:context=".ProfileActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_profile"
         android:layout_width="match_parent"
         android:layout_height="97dp"
         app:srcCompat="@drawable/ic_baseline_image_24" />
@@ -69,12 +69,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_profile"
         android:layout_width="match_parent"
-        android:layout_height="439dp" />
+        android:layout_height="354dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_profile"
         android:layout_width="match_parent"
-        android:layout_height="67dp"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
         app:menu="@menu/menu_bottomnav" />
+
 </LinearLayout>

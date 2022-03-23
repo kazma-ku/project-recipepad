@@ -50,10 +50,10 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView_profile"
+        android:id="@+id/bottomNavigationView_trending"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="2dp"
         app:menu="@menu/menu_bottomnav" />
+
 </LinearLayout>

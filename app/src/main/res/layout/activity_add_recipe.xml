@@ -50,7 +50,7 @@
         android:textColor="#AEAEAE" />
 
     <EditText
-        android:id="@+id/editText_addrecipes_nutritionalfacts"
+        android:id="@+id/editText_addrecipe_nutritionalfacts"
         android:layout_width="334dp"
         android:layout_height="146dp"
         android:layout_gravity="center"
@@ -61,18 +61,17 @@
         android:textColor="#AEAEAE" />
 
     <Button
-        android:id="@+id/button_addrecipes_upload"
+        android:id="@+id/button_addrecipe_upload"
         android:layout_width="124dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/upload" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView_profile"
+        android:id="@+id/bottomNavigationView_addrecipe"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="2dp"
         app:menu="@menu/menu_bottomnav" />
 
 </LinearLayout>
