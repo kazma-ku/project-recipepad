@@ -5,17 +5,22 @@ public class User {
     private String username;
     public String email;
 
-    //firebase can handle unique id + password authentication, don't need to store password here but likely id.
-    private String id;
-
-    private String followerCount;
-    private String followingCount;
+    private int followerCount;
+    private int followingCount;
 
 
     public User(String username, String email) {
         this.username = username;
         this.email = email;
-        //other data is set when retrieving from firestore
+        this.followerCount = 0;
+        this.followingCount = 0;
+    }
+
+    public User(String username, String email, int followerCount, int followingCount) {
+        this.username = username;
+        this.email = email;
+        this.followerCount = followerCount;
+        this.followingCount = followingCount;
     }
 
     public String getUsername() {
@@ -34,27 +39,27 @@ public class User {
         this.email = email;
     }
 
-    public String getId() {
-        return id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFollowerCount() {
+    public int getFollowerCount() {
         return followerCount;
     }
 
-    public void setFollowerCount(String followerCount) {
+    public void setFollowerCount(int followerCount) {
         this.followerCount = followerCount;
     }
 
-    public String getFollowingCount() {
+    public int getFollowingCount() {
         return followingCount;
     }
 
-    public void setFollowingCount(String followingCount) {
+    public void setFollowingCount(int followingCount) {
         this.followingCount = followingCount;
     }
 }
