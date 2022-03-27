@@ -73,6 +73,7 @@
         android:layout_width="357dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
+        android:onClick="signUp"
         android:text="@string/sign_up"
         android:textSize="20sp" />
 
