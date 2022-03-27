@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBF8F7"
+    android:onClick="swapToLogin"
     android:orientation="vertical"
     tools:context=".SignupActivity">
 
@@ -52,24 +53,13 @@
         android:text="@string/password"
         android:textColor="#AEAEAE" />
 
-    <EditText
-        android:id="@+id/editText_signup_reenterpassword"
-        android:layout_width="361dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:autofillHints=""
-        android:backgroundTint="#AEAEAE"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/re_enter_password"
-        android:textColor="#AEAEAE" />
-
     <Button
         android:id="@+id/button_signup_signup"
         android:layout_width="357dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:layout_marginVertical="10dp"
+        android:onClick="createUser"
         android:text="@string/sign_up"
         android:textSize="20sp" />
 

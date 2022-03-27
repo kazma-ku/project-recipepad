@@ -1,5 +1,8 @@
 package com.bcit.comp3717_recipe_pad;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String username;
@@ -8,12 +11,17 @@ public class User {
     private int followerCount;
     private int followingCount;
 
+    private List<String> ownRecipes;
+    private List<String> savedRecipes;
+
 
     public User(String username, String email) {
         this.username = username;
         this.email = email;
         this.followerCount = 0;
         this.followingCount = 0;
+        this.ownRecipes = new ArrayList<String>();
+        this.savedRecipes = new ArrayList<String>();
     }
 
     public User(String username, String email, int followerCount, int followingCount) {
@@ -61,5 +69,21 @@ public class User {
 
     public void setFollowingCount(int followingCount) {
         this.followingCount = followingCount;
+    }
+
+    public List<String> getOwnRecipes() {
+        return ownRecipes;
+    }
+
+    public void setOwnRecipes(List<String> ownRecipes) {
+        this.ownRecipes = ownRecipes;
+    }
+
+    public List<String> getSavedRecipes() {
+        return savedRecipes;
+    }
+
+    public void setSavedRecipes(List<String> savedRecipes) {
+        this.savedRecipes = savedRecipes;
     }
 }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class FeedActivity extends RecyclerView.Adapter<FeedActivity.ViewHolder> {
+public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyclerActivity.ViewHolder> {
 
     private Recipe[] recipes;
 
@@ -54,14 +54,14 @@ public class FeedActivity extends RecyclerView.Adapter<FeedActivity.ViewHolder> 
      * @param dataSet String[] containing the data to populate views to be used
      *                by RecyclerView.
      */
-    public FeedActivity(Recipe[] dataSet) {
+    public TrendingRecyclerActivity(Recipe[] dataSet) {
         recipes = dataSet;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_feed, viewGroup, false);
+                .inflate(R.layout.item_trending_feed, viewGroup, false);
 
         return new ViewHolder(view);
     }
