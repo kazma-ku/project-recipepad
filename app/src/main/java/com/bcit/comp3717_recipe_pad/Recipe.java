@@ -18,7 +18,7 @@ public class Recipe {
     private String uploadDate;
     private String userID;
 
-    public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts) {
+    public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts, String userID) {
         this.img = img;
         this.title = title;
         this.desc = desc;
@@ -28,9 +28,12 @@ public class Recipe {
         this.dislikesNum = 0;
         this.commentsNum = 0;
         this.nutrFacts = nutrFacts;
+        this.userID = userID;
+        this.uploadDate = "";
     }
 
-    public Recipe(String img, String title, String desc, int likesNum, int dislikesNum, int commentsNum, String ingredients, String steps) {
+    public Recipe(String img, String title, String desc, int likesNum, int dislikesNum,
+                  int commentsNum, String ingredients, String steps, String nutrFacts, String userID) {
         this.img = img;
         this.title = title;
         this.desc = desc;
@@ -39,6 +42,9 @@ public class Recipe {
         this.commentsNum = commentsNum;
         this.ingredients = ingredients;
         this.steps = steps;
+        this.nutrFacts = nutrFacts;
+        this.userID = userID;
+        this.uploadDate = "";
     }
 
     public String getUserID() {

@@ -8,10 +8,26 @@
     android:background="#EBF8F7"
     tools:context=".AddRecipeActivity">
 
+    <EditText
+        android:id="@+id/editText_addrecipe_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:ems="10"
+        android:hint="Description..."
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_ingredients"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_addrecipe_title" />
+
     <ImageView
         android:id="@+id/imageView_addrecipe_uploadimage"
         android:layout_width="136dp"
-        android:layout_height="113dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/upload_images"
         app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,14 +39,14 @@
         android:id="@+id/editText_addrecipe_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="37dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_ingredients"
+        app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addrecipe_uploadimage" />
@@ -38,9 +54,9 @@
     <EditText
         android:id="@+id/editText_addrecipe_ingredients"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginEnd="38dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:hint="@string/ingredients"
         android:inputType="textPersonName"
@@ -49,14 +65,14 @@
         app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_addrecipe_title" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_addrecipe_description" />
 
     <EditText
         android:id="@+id/editText_addrecipe_steps"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginEnd="38dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
         android:ems="10"
         android:gravity="top"
         android:hint="@string/steps"
@@ -71,8 +87,8 @@
         android:id="@+id/editText_addrecipe_nutritionalfacts"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginEnd="38dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:gravity="top"
         android:hint="@string/nutritional_facts"
@@ -87,6 +103,8 @@
         android:id="@+id/button_addrecipe_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:onClick="addRecipe"
         android:text="@string/upload"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_addrecipe"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,10 +114,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_addrecipe"
         android:layout_width="wrap_content"
-        android:layout_height="67dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_addrecipe_upload"
         app:menu="@menu/menu_bottomnav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
