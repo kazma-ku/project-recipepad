@@ -1,76 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBF8F7"
-    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
     <ImageView
         android:id="@+id/imageView_profile"
-        android:layout_width="match_parent"
-        android:layout_height="97dp"
+        android:layout_width="416dp"
+        android:layout_height="124dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_profile_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_image_24" />
 
     <TextView
         android:id="@+id/textView_profile_username"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="TextView"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView_profile_followers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_profile" />
 
     <TextView
         android:id="@+id/textView_profile_followers"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="TextView"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView_profile_following"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_profile_username" />
 
     <TextView
         android:id="@+id/textView_profile_following"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
         android:text="TextView"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_profile_savedrecipes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_profile_followers" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/button_profile_myrecipes"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="15dp"
-        android:orientation="horizontal">
+        android:text="My Recipes"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_profile_savedrecipes"
+        app:layout_constraintEnd_toStartOf="@+id/button_profile_savedrecipes"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/button_profile_myrecipes"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="My Recipes" />
+    <Button
+        android:id="@+id/button_profile_savedrecipes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:text="Saved Recipes"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_profile_myrecipes"
+        app:layout_constraintTop_toBottomOf="@+id/textView_profile_following" />
 
-        <Button
-            android:id="@+id/button_profile_savedrecipes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Saved Recipes" />
-
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_profile"
-        android:layout_width="match_parent"
-        android:layout_height="354dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_profile_savedrecipes"
+        tools:layout_editor_absoluteY="234dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_profile"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="67dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView_profile"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_profile"
         app:menu="@menu/menu_bottomnav" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

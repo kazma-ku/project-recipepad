@@ -38,7 +38,30 @@ public class TrendingActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(true);
+                if(item.getItemId() == R.id.item_bottomnav_home)
+                {
+                    item.setChecked(true);
+                    Intent intent = new Intent(TrendingActivity.this, MainFeedActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.item_bottomnav_profile)
+                {
+                    item.setChecked(true);
+                    Intent intent = new Intent(TrendingActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId() == R.id.item_bottomnav_trending)
+                {
+                    item.setChecked(true);
+                    Intent intent = new Intent(TrendingActivity.this, TrendingActivity.class);
+                    startActivity(intent);
+                }
+                else if (item.getItemId() == R.id.item_bottomnav_upload)
+                {
+                    item.setChecked(true);
+                    Intent intent = new Intent(TrendingActivity.this, AddRecipeActivity.class);
+                    startActivity(intent);
+                }
                 return true;
             }
         });
@@ -102,26 +125,6 @@ public class TrendingActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.item_actionbar_logout)
         {
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        else if(item.getItemId() == R.id.item_bottomnav_home)
-        {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        else if(item.getItemId() == R.id.item_bottomnav_profile)
-        {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
-        }
-        else if(item.getItemId() == R.id.item_bottomnav_trending)
-        {
-            Intent intent = new Intent(this, TrendingActivity.class);
-            startActivity(intent);
-        }
-        else if (item.getItemId() == R.id.item_bottomnav_upload)
-        {
-            Intent intent = new Intent(this, AddRecipeActivity.class);
             startActivity(intent);
         }
 
