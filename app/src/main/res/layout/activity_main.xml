@@ -26,7 +26,7 @@
         android:layout_gravity="center"
         android:backgroundTint="#AEAEAE"
         android:ems="10"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:textColor="#AEAEAE" />
 
@@ -41,6 +41,13 @@
         android:inputType="textPersonName"
         android:textColor="#AEAEAE" />
 
+    <TextView
+        android:id="@+id/textView_main_incorrectlogin"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#BF1D56" />
+
     <Button
         android:id="@+id/button_main_login"
         android:layout_width="357dp"
@@ -52,7 +59,7 @@
 
     <TextView
         android:id="@+id/textView_main_forgotpassword"
-        android:layout_width="353dp"
+        android:layout_width="355dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/forgot_password"

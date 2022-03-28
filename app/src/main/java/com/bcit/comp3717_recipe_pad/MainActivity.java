@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.editText_main_password);
         login = findViewById(R.id.button_main_login);
 
+        System.out.println(email.getText().toString());
+        System.out.println(password.getText().toString());
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,14 +68,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(AuthResult authResult) {
-                Log.d("debug", "success");
-                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, TrendingActivity.class));
-                finish();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    Log.d("debug", "success");
+                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, TrendingActivity.class));
+                    finish();
+                }
+                else
+                {
+
+                    TextView textView = findViewById(R.id.textView_main_incorrectlogin);
+                    textView.setText("The email or password you entered is incorrect.");
+                    task.getException().printStackTrace();
+                    Toast.makeText(MainActivity.this,"Login Unsuccessful",Toast.LENGTH_SHORT).show();
+                }
             }
+
+//            @Override
+//            public void onSuccess(AuthResult authResult) {
+//                Log.d("debug", "success");
+//                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(MainActivity.this, TrendingActivity.class));
+//                finish();
+//            }
+
         });
     }
 }
