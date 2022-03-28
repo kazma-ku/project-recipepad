@@ -73,9 +73,9 @@ public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyc
 //        viewHolder.getImg().setImageBitmap();
         viewHolder.getTitle().setText(recipes[position].getTitle());
         viewHolder.getDesc().setText(recipes[position].getDesc());
-        viewHolder.getLikes().setText(recipes[position].getLikesNum());
-        viewHolder.getDislkes().setText(recipes[position].getDislikesNum());
-        viewHolder.getComments().setText(recipes[position].getCommentsNum());
+        viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
+        viewHolder.getDislkes().setText(String.valueOf(recipes[position].getDislikesNum()));
+        viewHolder.getComments().setText(String.valueOf(recipes[position].getCommentsNum()));
     }
 
     //

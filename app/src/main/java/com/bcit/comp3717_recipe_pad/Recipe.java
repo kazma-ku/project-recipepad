@@ -15,7 +15,7 @@ public class Recipe {
     private String ingredients;
     private String steps;
     private String nutrFacts;
-
+    private String uploadDate;
     private String userID;
 
     public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts) {
@@ -119,5 +119,13 @@ public class Recipe {
 
     public void setNutrFacts(String nutrFacts) {
         this.nutrFacts = nutrFacts;
+    }
+
+    public String getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(String uploadDate) {
+        this.uploadDate = uploadDate;
     }
 }

@@ -103,7 +103,10 @@ public class DataHandler {
 
         List<Recipe> recipes = new ArrayList<>();
 
-        db.collection("recipes").whereGreaterThan("uploadDate", cutOff)
+        Log.d("before", "made it");
+
+        db.collection("recipes")
+//                .whereGreaterThan("uploadDate", cutOff)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -114,15 +117,19 @@ public class DataHandler {
                                 recipes.add(documentSnapshot.toObject(Recipe.class));
 
                             }
+                        } else {
+                            Log.d("else", "not success");
                         }
+                        recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
+                        Log.d("sortPart", recipes.toString());
+//
+//                        Recipe[] sorted = recipes.toArray(new Recipe[6]);
+
                     }
                 });
 
-        recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
 
-        Recipe[] sorted = recipes.toArray(new Recipe[6]);
-
-        return sorted;
+        return recipes.toArray(new Recipe[6]);
 
     }
 
