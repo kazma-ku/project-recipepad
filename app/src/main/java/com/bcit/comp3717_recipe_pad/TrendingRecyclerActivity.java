@@ -1,5 +1,6 @@
 package com.bcit.comp3717_recipe_pad;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyc
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
 
-//        viewHolder.getImg().setImageBitmap();
+        viewHolder.getImg().setImageResource(R.drawable._35_8354885_macaroni_and_cheese_clipart_transparent_frozen_mac_and);
         viewHolder.getTitle().setText(recipes[position].getTitle());
         viewHolder.getDesc().setText(recipes[position].getDesc());
         viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
