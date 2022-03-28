@@ -115,19 +115,19 @@ public class DataHandler {
                             for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                                 Log.d("RecipeGet", documentSnapshot.getId().toString());
                                 recipes.add(documentSnapshot.toObject(Recipe.class));
+                                recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
+                                Log.d("sortPart", recipes.toString());
 
                             }
                         } else {
                             Log.d("else", "not success");
                         }
-                        recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
-                        Log.d("sortPart", recipes.toString());
+
 //
 //                        Recipe[] sorted = recipes.toArray(new Recipe[6]);
 
                     }
                 });
-
 
         return recipes.toArray(new Recipe[6]);
 

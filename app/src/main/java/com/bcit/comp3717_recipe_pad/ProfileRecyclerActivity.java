@@ -74,11 +74,12 @@ public class ProfileRecyclerActivity extends RecyclerView.Adapter<ProfileRecycle
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
+        viewHolder.getImg().setImageResource(R.drawable._35_8354885_macaroni_and_cheese_clipart_transparent_frozen_mac_and);
         viewHolder.getTitle().setText(recipes[position].getTitle());
         viewHolder.getDesc().setText(recipes[position].getDesc());
-        viewHolder.getLikes().setText(recipes[position].getLikesNum());
-        viewHolder.getDislkes().setText(recipes[position].getDislikesNum());
-        viewHolder.getComments().setText(recipes[position].getCommentsNum());
+        viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
+        viewHolder.getDislkes().setText(String.valueOf(recipes[position].getDislikesNum()));
+        viewHolder.getComments().setText(String.valueOf(recipes[position].getCommentsNum()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
