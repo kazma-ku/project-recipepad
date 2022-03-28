@@ -118,9 +118,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Add a comment..."
         android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Add a comment" />
+        android:minHeight="48dp" />
 
     <TextView
         android:id="@+id/textView_recipe_totalcomments"

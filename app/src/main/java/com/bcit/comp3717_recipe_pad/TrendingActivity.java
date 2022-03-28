@@ -105,7 +105,7 @@ public class TrendingActivity extends AppCompatActivity {
                         }
                         recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
                         Log.d("sortPart", recipes.get(0).toString());
-                        Recipe[] sorted = recipes.toArray(new Recipe[2]);
+                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
                         setupRecyclerView(sorted);
 
                     }

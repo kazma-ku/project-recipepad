@@ -26,4 +26,6 @@
     <string name="ingredients">Ingredients...</string>
     <string name="recipe_thumbnail">Recipe Thumbnail</string>
     <string name="login">Login</string>
+    <string name="saved_recipes">Saved Recipes</string>
+    <string name="my_recipes">My Recipes</string>
 </resources>

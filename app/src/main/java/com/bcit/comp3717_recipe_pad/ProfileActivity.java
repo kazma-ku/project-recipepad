@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -134,5 +135,21 @@ public class ProfileActivity extends AppCompatActivity {
         username.setText(u.getUsername());
         followers.setText(u.getFollowerCount() + " Followers");
         following.setText(u.getFollowingCount() + " Following");
+    }
+
+    public void changeRecyclerView(View view)
+    {
+        TextView textView = findViewById(R.id.textView_profile_myrecipessaved);
+        int buttonMyRecipes = R.id.button_profile_myrecipes;
+        int buttonSavedRecipes = R.id.button_profile_savedrecipes;
+
+        if(view.getId() == buttonMyRecipes)
+        {
+            textView.setText("My Recipes");
+        }
+        else if(view.getId() == buttonSavedRecipes)
+        {
+            textView.setText("Saved Recipes");
+        }
     }
 }
