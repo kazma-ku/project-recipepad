@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -28,8 +33,16 @@ public class TrendingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
         getData();
-    }
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                return true;
+            }
+        });
+    }
 
     void setupRecyclerView(Recipe[] recipes) {
 
@@ -75,6 +88,44 @@ public class TrendingActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if (item.getItemId() == R.id.item_actionbar_logout)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else if(item.getItemId() == R.id.item_bottomnav_home)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else if(item.getItemId() == R.id.item_bottomnav_profile)
+        {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        }
+        else if(item.getItemId() == R.id.item_bottomnav_trending)
+        {
+            Intent intent = new Intent(this, TrendingActivity.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.item_bottomnav_upload)
+        {
+            Intent intent = new Intent(this, AddRecipeActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
