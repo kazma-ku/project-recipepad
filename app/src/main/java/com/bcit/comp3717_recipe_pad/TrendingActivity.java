@@ -35,6 +35,7 @@ public class TrendingActivity extends AppCompatActivity {
         getData();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
+        bottomNavigationView.setSelectedItemId(R.id.item_bottomnav_trending);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -104,7 +105,7 @@ public class TrendingActivity extends AppCompatActivity {
                         }
                         recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
                         Log.d("sortPart", recipes.get(0).toString());
-                        Recipe[] sorted = recipes.toArray(new Recipe[6]);
+                        Recipe[] sorted = recipes.toArray(new Recipe[2]);
                         setupRecyclerView(sorted);
 
                     }

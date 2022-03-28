@@ -21,6 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
 //        setupRecyclerView(DataHandler.getTrending());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_profile);
+        bottomNavigationView.setSelectedItemId(R.id.item_bottomnav_profile);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

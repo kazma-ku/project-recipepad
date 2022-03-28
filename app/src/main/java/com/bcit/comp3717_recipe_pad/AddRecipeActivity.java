@@ -19,6 +19,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_recipe);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_addrecipe);
+        bottomNavigationView.setSelectedItemId(R.id.item_bottomnav_upload);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
