@@ -34,7 +34,7 @@ public class TrendingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trending);
         getData();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_mainfeed);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
