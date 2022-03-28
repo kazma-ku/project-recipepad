@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        tools:srcCompat="@drawable/_35_8354885_macaroni_and_cheese_clipart_transparent_frozen_mac_and" />
 
     <TextView
         android:id="@+id/textView_item_title"
@@ -28,6 +28,7 @@
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="7dp"
         android:text="TextView"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView_item_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView_item_thumbnail"
@@ -53,6 +54,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
+
         <TextView
             android:id="@+id/textView_item_likeCount"
             android:layout_width="wrap_content"
@@ -60,12 +68,26 @@
             android:layout_weight="1"
             android:text="TextView" />
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_thumb_down_24" />
+
         <TextView
             android:id="@+id/textView_item_dislikeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_chat_24" />
 
         <TextView
             android:id="@+id/textView_item_commentCount"
