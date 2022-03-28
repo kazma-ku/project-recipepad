@@ -69,7 +69,8 @@ public class SignupActivity extends AppCompatActivity {
                                 }
                             });
 
-                            Intent myIntent = new Intent(SignupActivity.this, MainFeedActivity.class);
+                            //
+                            Intent myIntent = new Intent(SignupActivity.this, TrendingActivity.class);
                             SignupActivity.this.startActivity(myIntent);
 
                         } else {

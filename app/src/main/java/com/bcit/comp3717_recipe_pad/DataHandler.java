@@ -9,13 +9,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DataHandler {
 
@@ -82,6 +91,38 @@ public class DataHandler {
                 }
             }
         });
+
+    }
+
+    public static Recipe[] getTrending() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Date threeDaysAgo = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(3));
+
+        Timestamp cutOff = new Timestamp(threeDaysAgo);
+
+        List<Recipe> recipes = new ArrayList<>();
+
+        db.collection("recipes").whereGreaterThan("uploadDate", cutOff)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                Log.d("RecipeGet", documentSnapshot.getId().toString());
+                                recipes.add(documentSnapshot.toObject(Recipe.class));
+
+                            }
+                        }
+                    }
+                });
+
+        recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
+
+        Recipe[] sorted = recipes.toArray(new Recipe[6]);
+
+        return sorted;
 
     }
 

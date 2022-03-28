@@ -2,6 +2,8 @@ package com.bcit.comp3717_recipe_pad;
 
 public class Recipe {
 
+    public Recipe(){};
+
     // tbd depending on how we want to store images in db
     private String img;
 
@@ -12,10 +14,11 @@ public class Recipe {
     private int commentsNum;
     private String ingredients;
     private String steps;
+    private String nutrFacts;
 
     private String userID;
 
-    public Recipe(String img, String title, String desc, String ingredients, String steps) {
+    public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts) {
         this.img = img;
         this.title = title;
         this.desc = desc;
@@ -24,6 +27,7 @@ public class Recipe {
         this.likesNum = 0;
         this.dislikesNum = 0;
         this.commentsNum = 0;
+        this.nutrFacts = nutrFacts;
     }
 
     public Recipe(String img, String title, String desc, int likesNum, int dislikesNum, int commentsNum, String ingredients, String steps) {
@@ -107,5 +111,13 @@ public class Recipe {
 
     public void setSteps(String steps) {
         this.steps = steps;
+    }
+
+    public String getNutrFacts() {
+        return nutrFacts;
+    }
+
+    public void setNutrFacts(String nutrFacts) {
+        this.nutrFacts = nutrFacts;
     }
 }
