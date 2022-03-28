@@ -14,6 +14,8 @@ public class User {
     private List<String> ownRecipes;
     private List<String> savedRecipes;
 
+    public User() {}
+
 
     public User(String username, String email) {
         this.username = username;

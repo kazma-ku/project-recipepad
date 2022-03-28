@@ -27,8 +27,8 @@
         android:layout_gravity="center"
         android:backgroundTint="#AEAEAE"
         android:ems="10"
+        android:hint="@string/username"
         android:inputType="text"
-        android:text="@string/username"
         android:textColor="#AEAEAE" />
 
     <EditText
@@ -38,8 +38,8 @@
         android:layout_gravity="center"
         android:backgroundTint="#AEAEAE"
         android:ems="10"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:text="@string/email"
         android:textColor="#AEAEAE" />
 
     <EditText
@@ -49,8 +49,8 @@
         android:layout_gravity="center"
         android:backgroundTint="#AEAEAE"
         android:ems="10"
+        android:hint="@string/password"
         android:inputType="text"
-        android:text="@string/password"
         android:textColor="#AEAEAE" />
 
     <Button

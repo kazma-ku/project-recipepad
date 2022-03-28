@@ -1,5 +1,7 @@
 package com.bcit.comp3717_recipe_pad;
 
+import static com.bcit.comp3717_recipe_pad.DataHandler.getUser;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,11 +55,19 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("debug", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null) {
-                                String uid = user.getUid();
-                                DataHandler.addUser(new User(username.getText().toString(), email.getText().toString()), uid);
-                            }
+                            mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                                @Override
+                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                                    if (firebaseAuth.getCurrentUser() == null) {
+                                        Log.d("debug", "null user");
+                                    }
+                                    else {
+                                        Log.d("debug", firebaseAuth.getCurrentUser().getUid());
+                                        DataHandler.addUser(new User(username.getText().toString(), email.getText().toString()),
+                                                firebaseAuth.getCurrentUser().getUid());
+                                    }
+                                }
+                            });
 
                             Intent myIntent = new Intent(SignupActivity.this, MainFeedActivity.class);
                             SignupActivity.this.startActivity(myIntent);
