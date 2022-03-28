@@ -3,6 +3,7 @@ package com.bcit.comp3717_recipe_pad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +36,39 @@ public class MainFeedActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if (item.getItemId() == R.id.item_actionbar_logout)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else if(item.getItemId() == R.id.item_bottomnav_home)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else if(item.getItemId() == R.id.item_bottomnav_profile)
+        {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        }
+        else if(item.getItemId() == R.id.item_bottomnav_trending)
+        {
+            Intent intent = new Intent(this, TrendingActivity.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.item_bottomnav_upload)
+        {
+            Intent intent = new Intent(this, AddRecipeActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 //    void SetupRecyclerView() {
 //

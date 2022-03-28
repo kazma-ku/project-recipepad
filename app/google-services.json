@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "307017668442",
+    "project_id": "recipepad-91d52",
+    "storage_bucket": "recipepad-91d52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307017668442:android:cc96cf2e97d2872d4cc563",
+        "android_client_info": {
+          "package_name": "com.bcit.comp3717_recipe_pad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307017668442-ie5fualgsab2pdh37o5qdb9lflj3mh45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIrbrsHa3AMqmxbNuRRETlW7TdEH42dow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307017668442-ie5fualgsab2pdh37o5qdb9lflj3mh45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
