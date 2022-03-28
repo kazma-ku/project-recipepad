@@ -20,25 +20,25 @@
         android:textStyle="bold|italic" />
 
     <EditText
-        android:id="@+id/editText_main_password"
-        android:layout_width="361dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#AEAEAE"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/password"
-        android:textColor="#AEAEAE" />
-
-    <EditText
         android:id="@+id/editText_main_username"
         android:layout_width="361dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:backgroundTint="#AEAEAE"
         android:ems="10"
+        android:hint="@string/username"
         android:inputType="textPersonName"
-        android:text="@string/username"
+        android:textColor="#AEAEAE" />
+
+    <EditText
+        android:id="@+id/editText_main_password"
+        android:layout_width="361dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#AEAEAE"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPersonName"
         android:textColor="#AEAEAE" />
 
     <Button

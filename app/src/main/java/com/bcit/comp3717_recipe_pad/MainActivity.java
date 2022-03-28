@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+                Log.d("debug", "success");
                 Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, MainFeedActivity.class));
+                startActivity(new Intent(MainActivity.this, TrendingActivity.class));
                 finish();
             }
         });
