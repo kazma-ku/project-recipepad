@@ -1,5 +1,10 @@
 package com.bcit.comp3717_recipe_pad;
 
+import com.google.firebase.Timestamp;
+import com.google.type.Date;
+
+import java.sql.Time;
+
 public class Recipe {
 
     public Recipe(){};
@@ -15,7 +20,7 @@ public class Recipe {
     private String ingredients;
     private String steps;
     private String nutrFacts;
-    private String uploadDate;
+    private Timestamp uploadDate;
     private String userID;
 
     public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts, String userID) {
@@ -29,7 +34,7 @@ public class Recipe {
         this.commentsNum = 0;
         this.nutrFacts = nutrFacts;
         this.userID = userID;
-        this.uploadDate = "";
+        this.uploadDate = Timestamp.now();
     }
 
     public Recipe(String img, String title, String desc, int likesNum, int dislikesNum,
@@ -44,7 +49,6 @@ public class Recipe {
         this.steps = steps;
         this.nutrFacts = nutrFacts;
         this.userID = userID;
-        this.uploadDate = "";
     }
 
     public String getUserID() {
@@ -127,11 +131,11 @@ public class Recipe {
         this.nutrFacts = nutrFacts;
     }
 
-    public String getUploadDate() {
+    public Timestamp getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(String uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
     }
 }

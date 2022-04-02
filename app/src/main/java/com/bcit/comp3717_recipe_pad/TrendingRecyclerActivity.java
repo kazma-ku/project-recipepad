@@ -70,7 +70,6 @@ public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyc
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-
         viewHolder.getImg().setImageResource(R.drawable._35_8354885_macaroni_and_cheese_clipart_transparent_frozen_mac_and);
         viewHolder.getTitle().setText(recipes[position].getTitle());
         viewHolder.getDesc().setText(recipes[position].getDesc());

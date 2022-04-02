@@ -133,7 +133,7 @@ public class DataHandler {
 //
 //    }
 
-    public static void getData(OnSuccess o) {
+    public static void getTrending(OnSuccess o) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Date threeDaysAgo = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(3));
@@ -145,7 +145,7 @@ public class DataHandler {
         Log.d("before", "made it");
 
         db.collection("recipes")
-//                .whereGreaterThan("uploadDate", cutOff)
+                .whereGreaterThan("uploadDate", cutOff)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -160,7 +160,6 @@ public class DataHandler {
                             Log.d("else", "not success");
                         }
                         recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
-                        Log.d("sortPart", recipes.get(0).toString());
                         Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
 //                        setupRecyclerView(sorted);
                         o.onData(sorted);

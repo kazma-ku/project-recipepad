@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -21,12 +21,17 @@ public class TrendingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
-        DataHandler.getData(new OnSuccess() {
+        DataHandler.getTrending(new OnSuccess() {
             @Override
             public void onData(Recipe[] recipes) {
+                if (recipes.length == 0) {
+                    TextView header = findViewById(R.id.textView_trending_trendingrecipes);
+                    header.setText(R.string.noTrending);
+                }
                 setupRecyclerView(recipes);
             }
         });
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
         bottomNavigationView.setSelectedItemId(R.id.item_bottomnav_trending);
@@ -65,6 +70,7 @@ public class TrendingActivity extends AppCompatActivity {
     void setupRecyclerView(Recipe[] recipes) {
 
         RecyclerView rv = findViewById(R.id.reyclerView_trending);
+
         TrendingRecyclerActivity adapter = new TrendingRecyclerActivity(recipes);
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
