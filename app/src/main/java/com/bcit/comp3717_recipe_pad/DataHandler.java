@@ -94,7 +94,46 @@ public class DataHandler {
 
     }
 
-    public static Recipe[] getTrending() {
+//    public static Recipe[] getTrending() {
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        Date threeDaysAgo = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(3));
+//
+//        Timestamp cutOff = new Timestamp(threeDaysAgo);
+//
+//        List<Recipe> recipes = new ArrayList<>();
+//
+//        Log.d("before", "made it");
+//
+//        db.collection("recipes")
+////                .whereGreaterThan("uploadDate", cutOff)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//                                Log.d("RecipeGet", documentSnapshot.getId().toString());
+//                                recipes.add(documentSnapshot.toObject(Recipe.class));
+//                                recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
+//                                Log.d("sortPart", recipes.toString());
+//
+//                            }
+//                        } else {
+//                            Log.d("else", "not success");
+//                        }
+//
+////
+////                        Recipe[] sorted = recipes.toArray(new Recipe[6]);
+//
+//                    }
+//                });
+//
+//        return recipes.toArray(new Recipe[6]);
+//
+//    }
+
+    public static void getData(OnSuccess o) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Date threeDaysAgo = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(3));
@@ -115,24 +154,22 @@ public class DataHandler {
                             for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                                 Log.d("RecipeGet", documentSnapshot.getId().toString());
                                 recipes.add(documentSnapshot.toObject(Recipe.class));
-                                recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
-                                Log.d("sortPart", recipes.toString());
 
                             }
                         } else {
                             Log.d("else", "not success");
                         }
-
-//
-//                        Recipe[] sorted = recipes.toArray(new Recipe[6]);
+                        recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
+                        Log.d("sortPart", recipes.get(0).toString());
+                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
+//                        setupRecyclerView(sorted);
+                        o.onData(sorted);
 
                     }
                 });
 
-        return recipes.toArray(new Recipe[6]);
 
     }
-
 
 
 }
