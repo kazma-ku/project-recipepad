@@ -2,11 +2,14 @@ package com.bcit.comp3717_recipe_pad;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -17,6 +20,19 @@ public class MainFeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_feed);
+
+        DataHandler.getFeed(new OnSuccess() {
+            @Override
+            public void onData(Recipe[] recipes) {
+                if (recipes.length == 0) {
+                    TextView header = findViewById(R.id.textView_mainfeed_default);
+                    header.setText(R.string.noFollowingDefault);
+                }
+                setupRecyclerView(recipes);
+            }
+        });
+
+
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_mainfeed);
@@ -72,12 +88,15 @@ public class MainFeedActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    void setupRecyclerView(Recipe[] recipes) {
 
+        RecyclerView rv = findViewById(R.id.recyclerView_mainfeed);
 
-//    void SetupRecyclerView() {
-//
-    //could instead use a presenter class like in lab 7
-//    }
+        MainFeedRecyclerActivity adapter = new MainFeedRecyclerActivity(recipes);
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
 
 
 

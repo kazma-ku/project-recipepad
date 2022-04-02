@@ -85,7 +85,7 @@ public class DataHandler {
                     DocumentSnapshot document = task.getResult();
                     User user = document.toObject(User.class);
                     if (user != null)
-                    Log.d("debug", user.getUsername().toString());
+                        Log.d("debug", user.getUsername().toString());
                 } else {
                     Log.d("debug", "No doc");
                 }
@@ -170,5 +170,41 @@ public class DataHandler {
 
     }
 
+    public static void getFeed(OnSuccess o) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        List<Recipe> recipes = new ArrayList<>();
+
+        Log.d("before", "made it");
+
+        db.collection("recipes")
+                //need to query to only get recipes from users that user is following here.
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                Log.d("RecipeGet", documentSnapshot.getId().toString());
+                                recipes.add(documentSnapshot.toObject(Recipe.class));
+
+                            }
+                        } else {
+                            Log.d("else", "not success");
+                        }
+
+                        Comparator<Recipe> uploadsOrder =
+                                (r1, r2) -> {
+                                    return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
+                                };
+                        recipes.sort(uploadsOrder);
+
+                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
+//                        setupRecyclerView(sorted); now is done through passing to onData below
+                        o.onData(sorted);
+
+                    }
+                });
+    }
 
 }

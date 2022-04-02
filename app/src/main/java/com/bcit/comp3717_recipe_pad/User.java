@@ -13,9 +13,9 @@ public class User {
 
     private List<String> ownRecipes;
     private List<String> savedRecipes;
+    private List<String> followingList;
 
     public User() {}
-
 
     public User(String username, String email) {
         this.username = username;
@@ -24,6 +24,7 @@ public class User {
         this.followingCount = 0;
         this.ownRecipes = new ArrayList<String>();
         this.savedRecipes = new ArrayList<String>();
+        this.followingList = new ArrayList<>();
     }
 
     public User(String username, String email, int followerCount, int followingCount) {
@@ -87,5 +88,13 @@ public class User {
 
     public void setSavedRecipes(List<String> savedRecipes) {
         this.savedRecipes = savedRecipes;
+    }
+
+    public List<String> getFollowingList() {
+        return followingList;
+    }
+
+    public void setFollowingList(List<String> followingList) {
+        this.followingList = followingList;
     }
 }
