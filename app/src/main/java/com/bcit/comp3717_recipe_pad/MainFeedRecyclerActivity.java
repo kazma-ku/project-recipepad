@@ -125,25 +125,28 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
         viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if (!recipes[viewHolder.getAdapterPosition()].isLiked()) {
 
-                int oldCount = Integer.valueOf(viewHolder.getLikes().getText().toString());
-                oldCount ++;
-                int finalCount = oldCount;
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
-                        .update("likesNum", oldCount).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+                    int oldCount = Integer.valueOf(viewHolder.getLikes().getText().toString());
+                    oldCount++;
+                    int finalCount = oldCount;
 
-                            viewHolder.getLikes().setText(String.valueOf(finalCount));
-                        } else {
-                            Log.d("increment", "failed");
+                    db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                            .update("likesNum", oldCount).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                viewHolder.getLikes().setText(String.valueOf(finalCount));
+                            } else {
+                                Log.d("increment", "failed");
+                            }
                         }
-                    }
-                });
+                    });
 
+                }
             }
         });
 
@@ -152,21 +155,24 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                int count = Integer.valueOf(viewHolder.getDislkes().getText().toString());
-                count ++;
-                int finalCount = count;
-                db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
-                        .update("dislikesNum", count).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            viewHolder.getDislkes().setText(String.valueOf(finalCount));
-                        } else {
-                            Log.d("increment", "failed");
-                        }
-                    }
-                });
+                if (recipes[viewHolder.getAdapterPosition()].isLiked()) {
 
+                    int count = Integer.valueOf(viewHolder.getDislkes().getText().toString());
+                    count++;
+                    int finalCount = count;
+                    db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                            .update("dislikesNum", count).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                viewHolder.getDislkes().setText(String.valueOf(finalCount));
+                            } else {
+                                Log.d("increment", "failed");
+                            }
+                        }
+                    });
+
+                }
 
             }
         });

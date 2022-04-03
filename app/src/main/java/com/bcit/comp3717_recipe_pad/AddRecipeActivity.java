@@ -90,6 +90,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("Debug", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            documentReference.update("recipeID", documentReference.getId());
+
                             Intent intent = new Intent(getBaseContext(), AddRecipeActivity.class);
                             startActivity(intent);
                         }
