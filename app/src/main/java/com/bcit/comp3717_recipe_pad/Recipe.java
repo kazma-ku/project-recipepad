@@ -27,6 +27,7 @@ public class Recipe implements Serializable {
     private String userID;
     private String recipeID;
     private boolean liked;
+    private boolean disliked;
 
     public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts, String userID) {
         this.img = img;
@@ -42,6 +43,7 @@ public class Recipe implements Serializable {
         this.uploadDate = Timestamp.now();
         this.recipeID = "";
         this.liked = false;
+        this.disliked = false;
     }
 
     public Recipe(String img, String title, String desc, int likesNum, int dislikesNum,
@@ -58,6 +60,7 @@ public class Recipe implements Serializable {
         this.userID = userID;
         this.recipeID = "";
         this.liked = false;
+        this.disliked = false;
     }
 
     public String getUserID() {
@@ -164,4 +167,11 @@ public class Recipe implements Serializable {
         this.recipeID = recipeID;
     }
 
+    public boolean isDisliked() {
+        return disliked;
+    }
+
+    public void setDisliked(boolean disliked) {
+        this.disliked = disliked;
+    }
 }

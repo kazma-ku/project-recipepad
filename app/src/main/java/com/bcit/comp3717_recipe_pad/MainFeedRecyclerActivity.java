@@ -125,9 +125,9 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
         viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!recipes[viewHolder.getAdapterPosition()].isLiked()) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if (!recipes[viewHolder.getAdapterPosition()].isLiked()) {
 
                     int oldCount = Integer.valueOf(viewHolder.getLikes().getText().toString());
                     oldCount++;
@@ -146,6 +146,52 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                         }
                     });
 
+                    recipes[viewHolder.getAdapterPosition()].setLiked(true);
+
+                    if (recipes[viewHolder.getAdapterPosition()].isDisliked())
+                    {
+                        int oldCountDislike = Integer.valueOf(viewHolder.getDislkes().getText().toString());
+                        oldCountDislike--;
+                        int finalCountDislike = oldCountDislike;
+
+                        db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                                .update("dislikesNum", oldCountDislike).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+
+                                    viewHolder.getDislkes().setText(String.valueOf(finalCountDislike));
+                                } else {
+                                    Log.d("decrement", "failed");
+                                }
+                            }
+                        });
+
+                        recipes[viewHolder.getAdapterPosition()].setDisliked(false);
+                    }
+                }
+                else
+                {
+//                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                    int oldCount = Integer.valueOf(viewHolder.getLikes().getText().toString());
+                    oldCount--;
+                    int finalCount = oldCount;
+
+                    db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                            .update("likesNum", oldCount).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                viewHolder.getLikes().setText(String.valueOf(finalCount));
+                            } else {
+                                Log.d("decrement", "failed");
+                            }
+                        }
+                    });
+
+                    recipes[viewHolder.getAdapterPosition()].setLiked(false);
                 }
             }
         });
@@ -155,13 +201,13 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                if (recipes[viewHolder.getAdapterPosition()].isLiked()) {
+                if (!recipes[viewHolder.getAdapterPosition()].isDisliked()) {
 
-                    int count = Integer.valueOf(viewHolder.getDislkes().getText().toString());
-                    count++;
-                    int finalCount = count;
+                    int oldcount = Integer.valueOf(viewHolder.getDislkes().getText().toString());
+                    oldcount++;
+                    int finalCount = oldcount;
                     db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
-                            .update("dislikesNum", count).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            .update("dislikesNum", oldcount).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -172,6 +218,51 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                         }
                     });
 
+                    recipes[viewHolder.getAdapterPosition()].setDisliked(true);
+
+                    if (recipes[viewHolder.getAdapterPosition()].isLiked())
+                    {
+                        int oldCountLike = Integer.valueOf(viewHolder.getLikes().getText().toString());
+                        oldCountLike--;
+                        int finalCountLike = oldCountLike;
+
+                        db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                                .update("likesNum", oldCountLike).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+
+                                    viewHolder.getLikes().setText(String.valueOf(finalCountLike));
+                                } else {
+                                    Log.d("decrement", "failed");
+                                }
+                            }
+                        });
+
+                        recipes[viewHolder.getAdapterPosition()].setLiked(false);
+                    }
+
+                }
+                else
+                {
+                    int oldCount = Integer.valueOf(viewHolder.getDislkes().getText().toString());
+                    oldCount--;
+                    int finalCount = oldCount;
+
+                    db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                            .update("dislikesNum", oldCount).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                viewHolder.getDislkes().setText(String.valueOf(finalCount));
+                            } else {
+                                Log.d("decrement", "failed");
+                            }
+                        }
+                    });
+
+                    recipes[viewHolder.getAdapterPosition()].setDisliked(false);
                 }
 
             }
