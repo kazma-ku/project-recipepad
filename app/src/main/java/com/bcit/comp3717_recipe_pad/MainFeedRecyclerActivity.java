@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 
 public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp3717_recipe_pad.MainFeedRecyclerActivity.ViewHolder> {
 
@@ -173,9 +175,20 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
             @Override
             public void onClick(View view) {
                 Recipe recipe = recipes[viewHolder.getAdapterPosition()];
+
+                ArrayList<String> recipeInfo = new ArrayList<>();
+                recipeInfo.add(recipe.getTitle());
+                recipeInfo.add(String.valueOf(recipe.getLikesNum()));
+                recipeInfo.add(String.valueOf(recipe.getDislikesNum()));
+                recipeInfo.add(String.valueOf(recipe.getCommentsNum()));
+                recipeInfo.add(recipe.getDesc());
+                recipeInfo.add(recipe.getIngredients());
+                recipeInfo.add(recipe.getSteps());
+                recipeInfo.add(recipe.getUploadDate().toString());
+
                 Intent intent = new Intent(view.getContext(), RecipeActivity.class);
 
-                intent.putExtra("recipe", (Parcelable) recipe);
+                intent.putStringArrayListExtra("recipe", recipeInfo);
                 view.getContext().startActivity(intent);
             }
         });
