@@ -2,6 +2,7 @@ package com.bcit.comp3717_recipe_pad;
 
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -121,13 +125,23 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                int count = Integer.valueOf(viewHolder.getLikes().getText().toString());
-                count ++;
-                db.collection("recipes").document(recipes[position].getRecipeID())
-                        .update("likesNum", count);
+                int oldCount = Integer.valueOf(viewHolder.getLikes().getText().toString());
+                oldCount ++;
+                int finalCount = oldCount;
 
-//                viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
-                System.out.println("this should increment");
+                db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                        .update("likesNum", oldCount).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            viewHolder.getLikes().setText(String.valueOf(finalCount));
+                        } else {
+                            Log.d("increment", "failed");
+                        }
+                    }
+                });
+
             }
         });
 
@@ -138,18 +152,27 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
 
                 int count = Integer.valueOf(viewHolder.getDislkes().getText().toString());
                 count ++;
-                db.collection("recipes").document(recipes[position].getRecipeID())
-                        .update("dislikesNum", count);
+                int finalCount = count;
+                db.collection("recipes").document(recipes[viewHolder.getAdapterPosition()].getRecipeID())
+                        .update("dislikesNum", count).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            viewHolder.getDislkes().setText(String.valueOf(finalCount));
+                        } else {
+                            Log.d("increment", "failed");
+                        }
+                    }
+                });
 
-//                viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
-                System.out.println("this should increment");
+
             }
         });
 
         viewHolder.getRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Recipe recipe = recipes[position];
+                Recipe recipe = recipes[viewHolder.getAdapterPosition()];
                 Intent intent = new Intent(view.getContext(), RecipeActivity.class);
 
                 intent.putExtra("recipe", (Parcelable) recipe);
