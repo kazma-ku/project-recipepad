@@ -171,40 +171,53 @@ public class DataHandler {
     }
 
     public static void getFeed(OnSuccess o) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userID = user.getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         List<Recipe> recipes = new ArrayList<>();
 
         Log.d("before", "made it");
 
-        db.collection("recipes")
-                //need to query to only get recipes from users that user is following here.
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                Log.d("RecipeGet", documentSnapshot.getId().toString());
-                                recipes.add(documentSnapshot.toObject(Recipe.class));
+        DocumentReference docRef = db.collection("users").document(userID);
 
-                            }
-                        } else {
-                            Log.d("else", "not success");
-                        }
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    User document = task.getResult().toObject(User.class);
+                    List<String> followingList = document.getFollowingList();
 
-                        Comparator<Recipe> uploadsOrder =
-                                (r1, r2) -> {
-                                    return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
-                                };
-                        recipes.sort(uploadsOrder);
+                    db.collection("recipes")
+                            .whereIn("userID", followingList).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                            Log.d("RecipeGetFeed", documentSnapshot.getId().toString());
+                                            recipes.add(documentSnapshot.toObject(Recipe.class));
 
-                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
+                                        }
+                                    } else {
+                                        Log.d("else", "not success");
+                                    }
+
+                                    Comparator<Recipe> uploadsOrder =
+                                            (r1, r2) -> {
+                                                return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
+                                            };
+                                    recipes.sort(uploadsOrder);
+                                    Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
 //                        setupRecyclerView(sorted); now is done through passing to onData below
-                        o.onData(sorted);
+                                    o.onData(sorted);
 
-                    }
-                });
-    }
+                                }
+                            });
+                }
+            }
+    });
+}
+
 
 }
