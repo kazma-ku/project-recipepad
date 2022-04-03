@@ -9,12 +9,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainFeedActivity extends AppCompatActivity {
+
+    private boolean liked = false;
+    private boolean disliked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,11 @@ public class MainFeedActivity extends AppCompatActivity {
                 if (recipes.length == 0) {
                     TextView header = findViewById(R.id.textView_mainfeed_default);
                     header.setText(R.string.noFollowingDefault);
+                }
+                else
+                {
+                    TextView header = findViewById(R.id.textView_mainfeed_default);
+                    header.setText("Welcome to RecipePad!");
                 }
                 setupRecyclerView(recipes);
             }
@@ -98,8 +110,6 @@ public class MainFeedActivity extends AppCompatActivity {
     }
 
 
-
-
 //    @Override
 //    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 //        if(item.getItemId() == android.R.id.home)
@@ -109,5 +119,7 @@ public class MainFeedActivity extends AppCompatActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
+
 
 }

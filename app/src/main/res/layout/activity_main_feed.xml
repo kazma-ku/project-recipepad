@@ -10,23 +10,30 @@
 
     <TextView
         android:id="@+id/textView_mainfeed_default"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="353dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="1dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_mainfeed"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_mainfeed"
         android:layout_width="0dp"
-        android:layout_height="537dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="66dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_mainfeed_default" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_mainfeed"
         android:layout_width="0dp"
         android:layout_height="67dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

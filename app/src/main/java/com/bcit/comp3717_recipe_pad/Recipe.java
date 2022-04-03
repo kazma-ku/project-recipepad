@@ -22,6 +22,7 @@ public class Recipe {
     private String nutrFacts;
     private Timestamp uploadDate;
     private String userID;
+    private boolean liked;
 
     public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts, String userID) {
         this.img = img;
@@ -35,6 +36,7 @@ public class Recipe {
         this.nutrFacts = nutrFacts;
         this.userID = userID;
         this.uploadDate = Timestamp.now();
+        this.liked = false;
     }
 
     public Recipe(String img, String title, String desc, int likesNum, int dislikesNum,
@@ -49,6 +51,7 @@ public class Recipe {
         this.steps = steps;
         this.nutrFacts = nutrFacts;
         this.userID = userID;
+        this.liked = false;
     }
 
     public String getUserID() {
@@ -137,5 +140,13 @@ public class Recipe {
 
     public void setUploadDate(Timestamp uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 }
