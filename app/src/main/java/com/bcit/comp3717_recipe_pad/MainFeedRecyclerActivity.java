@@ -1,12 +1,17 @@
 package com.bcit.comp3717_recipe_pad;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp3717_recipe_pad.MainFeedRecyclerActivity.ViewHolder> {
@@ -25,6 +30,9 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
         private final TextView likes;
         private final TextView dislkes;
         private final TextView comments;
+        private final ImageView likeButton;
+        private final ImageView dislikeButton;
+        private final Button getRecipeButton;
 
         public ViewHolder(View view) {
             super(view);
@@ -35,6 +43,9 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
             likes = view.findViewById(R.id.textView_feedItem_likeCount);
             dislkes = view.findViewById(R.id.textView_feeditem_dislikesCount);
             comments = view.findViewById(R.id.textView_feeditem_commentCount);
+            likeButton = view.findViewById(R.id.imageView_feeditem_likebutton);
+            dislikeButton = view.findViewById(R.id.imageView_feeditem_dislikebutton);
+            getRecipeButton = view.findViewById(R.id.button_feeditem_getRecipe);
         }
 
         public TextView getUsername() {
@@ -61,6 +72,17 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
             return comments;
         }
 
+        public ImageView getLikeButton() {
+            return likeButton;
+        }
+
+        public ImageView getDislikeButton() {
+            return dislikeButton;
+        }
+
+        public Button getGetRecipeButton() {
+            return getRecipeButton;
+        }
     }
 
     /**
@@ -93,6 +115,49 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
         viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
         viewHolder.getDislkes().setText(String.valueOf(recipes[position].getDislikesNum()));
         viewHolder.getComments().setText(String.valueOf(recipes[position].getCommentsNum()));
+
+        viewHolder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                int count = Integer.valueOf(viewHolder.getLikes().getText().toString());
+                count ++;
+                db.collection("recipes").document(recipes[position].getRecipeID())
+                        .update("likesNum", count);
+
+//                viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
+                System.out.println("this should increment");
+            }
+        });
+
+        viewHolder.dislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                int count = Integer.valueOf(viewHolder.getDislkes().getText().toString());
+                count ++;
+                db.collection("recipes").document(recipes[position].getRecipeID())
+                        .update("dislikesNum", count);
+
+//                viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));
+                System.out.println("this should increment");
+            }
+        });
+
+        viewHolder.getRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Recipe recipe = recipes[position];
+                Intent intent = new Intent(view.getContext(), RecipeActivity.class);
+
+                intent.putExtra("recipe", (Parcelable) recipe);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 
     //
@@ -100,4 +165,5 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
     public int getItemCount() {
         return recipes.length;
     }
+
 }

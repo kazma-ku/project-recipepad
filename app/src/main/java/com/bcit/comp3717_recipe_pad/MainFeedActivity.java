@@ -20,9 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainFeedActivity extends AppCompatActivity {
 
-    private boolean liked = false;
-    private boolean disliked = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +40,6 @@ public class MainFeedActivity extends AppCompatActivity {
                 setupRecyclerView(recipes);
             }
         });
-
-
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_mainfeed);
