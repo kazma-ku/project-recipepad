@@ -35,7 +35,7 @@ public class MainFeedActivity extends AppCompatActivity {
                 else
                 {
                     TextView header = findViewById(R.id.textView_mainfeed_default);
-                    header.setText("Welcome to RecipePad!");
+                    header.setText(R.string.welcome);
                 }
                 setupRecyclerView(recipes);
             }
