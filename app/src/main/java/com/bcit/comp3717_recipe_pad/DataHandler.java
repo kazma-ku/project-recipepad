@@ -188,36 +188,40 @@ public class DataHandler {
                     User document = task.getResult().toObject(User.class);
                     List<String> followingList = document.getFollowingList();
 
-                    db.collection("recipes")
-                            .whereIn("userID", followingList).get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                            Log.d("RecipeGetFeed", documentSnapshot.getId().toString());
-                                            recipes.add(documentSnapshot.toObject(Recipe.class));
+                    if (followingList.isEmpty()) {
+                        o.onData(recipes.toArray(new Recipe[0]));
+                    } else {
 
+                        db.collection("recipes")
+                                .whereIn("userID", followingList).get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                                Log.d("RecipeGetFeed", documentSnapshot.getId().toString());
+                                                recipes.add(documentSnapshot.toObject(Recipe.class));
+
+                                            }
+                                        } else {
+                                            Log.d("else", "not success");
                                         }
-                                    } else {
-                                        Log.d("else", "not success");
-                                    }
 
-                                    Comparator<Recipe> uploadsOrder =
-                                            (r1, r2) -> {
-                                                return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
-                                            };
-                                    recipes.sort(uploadsOrder);
-                                    Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
+                                        Comparator<Recipe> uploadsOrder =
+                                                (r1, r2) -> {
+                                                    return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
+                                                };
+                                        recipes.sort(uploadsOrder);
+                                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
 //                        setupRecyclerView(sorted); now is done through passing to onData below
-                                    o.onData(sorted);
+                                        o.onData(sorted);
 
-                                }
-                            });
+                                    }
+                                });
+                    }
                 }
             }
-    });
+        });
+    }
 }
 
-
-}
