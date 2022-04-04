@@ -29,8 +29,6 @@ import java.time.temporal.TemporalAdjuster;
 public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyclerActivity.ViewHolder> {
 
     private Recipe[] recipes;
-    private Instant Glide;
-
 
     /**
      * Provide a reference to the type of views that you are using
