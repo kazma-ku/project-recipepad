@@ -82,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -91,6 +92,12 @@
         android:layout_width="match_parent"
         android:layout_height="135dp"
         app:srcCompat="@drawable/ic_baseline_image_24" />
+
+    <Button
+        android:id="@+id/button_recipe_followuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/follow_this_user" />
 
     <TextView
         android:id="@+id/textView_recipe_descriptiontitle"

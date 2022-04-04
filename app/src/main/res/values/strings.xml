@@ -40,4 +40,5 @@
     <string name="recipe_name">Recipe Name</string>
     <string name="likes"># Likes</string>
     <string name="dislikes"># Dislikes</string>
+    <string name="follow_this_user">Follow This User</string>
 </resources>
