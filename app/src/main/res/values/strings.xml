@@ -32,4 +32,12 @@
     <string name="noTrending">No currently trending recipes!</string>
     <string name="noFollowingDefault">Follow users for their posts to appear here!</string>
     <string name="welcome">Welcome to RecipePad!</string>
+    <string name="dish_description">Dish Description</string>
+    <string name="add_a_comment">Add a comment...</string>
+    <string name="steps_recipe">Steps</string>
+    <string name="ingredients_recipe">Ingredients</string>
+    <string name="comments"># Comments</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="likes"># Likes</string>
+    <string name="dislikes"># Dislikes</string>
 </resources>

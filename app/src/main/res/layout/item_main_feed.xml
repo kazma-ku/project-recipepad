@@ -27,6 +27,49 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_feedItem_username"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <TextView
+        android:id="@+id/textView_feedItem_likeCount"
+        android:layout_width="35dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:text="likes"
+        app:layout_constraintBottom_toTopOf="@+id/textView_feeditem_description"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_feeditem_getRecipe"
+        android:layout_width="100dp"
+        android:layout_height="53dp"
+        android:text="@string/get_recipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.721"
+        app:layout_constraintStart_toEndOf="@+id/imageView_feeditem_comment"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail" />
+
+    <TextView
+        android:id="@+id/textView_feeditem_description"
+        android:layout_width="377dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="76dp"
+        android:background="#F1F1F1"
+        android:paddingHorizontal="10dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail" />
+
+    <ImageView
+        android:id="@+id/imageView_feeditem_comment"
+        android:layout_width="62dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_feeditem_dislikebutton"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail"
+        app:srcCompat="@drawable/ic_baseline_chat_24" />
+
     <ImageView
         android:id="@+id/imageView_feeditem_likebutton"
         android:layout_width="35dp"
@@ -35,18 +78,18 @@
         android:onClick="likeButton"
         app:layout_constraintBottom_toTopOf="@+id/textView_feedItem_likeCount"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
+        app:srcCompat="@drawable/ic_baseline_thumb_up_24"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/textView_feedItem_likeCount"
+    <ImageView
+        android:id="@+id/imageView_feeditem_dislikebutton"
         android:layout_width="35dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="11dp"
-        android:gravity="center"
-        android:text="likes"
-        app:layout_constraintBottom_toTopOf="@+id/textView_feeditem_description"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_feeditem_likebutton"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail"
+        app:srcCompat="@drawable/ic_baseline_thumb_down_24" />
 
     <TextView
         android:id="@+id/textView_feeditem_commentCount"
@@ -59,33 +102,16 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/textView_feeditem_description"
         app:layout_constraintEnd_toStartOf="@+id/button_feeditem_getRecipe"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView_feeditem_dislikesCount"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_feeditem_comment" />
-
-    <Button
-        android:id="@+id/button_feeditem_getRecipe"
-        android:layout_width="100dp"
-        android:layout_height="53dp"
-        android:text="@string/get_recipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.721"
-        app:layout_constraintStart_toEndOf="@+id/imageView_feeditem_comment"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail" />
-
-    <ImageView
-        android:id="@+id/imageView_feeditem_dislikebutton"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView_feeditem_likebutton"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail"
-        app:srcCompat="@drawable/ic_baseline_thumb_down_24" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_feeditem_comment"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView_feeditem_dislikesCount"
         android:layout_width="36dp"
         android:layout_height="22dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="6dp"
         android:gravity="center"
         android:text="dislikes"
@@ -95,25 +121,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView_feeditem_description"
-        android:layout_width="358dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="68dp"
-        android:text="TextView"
-        android:textSize="16sp"
+        android:id="@+id/textView_feeditem_spacing"
+        android:layout_width="407dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail" />
-
-    <ImageView
-        android:id="@+id/imageView_feeditem_comment"
-        android:layout_width="62dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView_feeditem_dislikebutton"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_feedItem_thumbnail"
-        app:srcCompat="@drawable/ic_baseline_chat_24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_feeditem_description"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

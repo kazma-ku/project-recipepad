@@ -285,11 +285,13 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                 recipeInfo.add(recipe.getDesc());
                 recipeInfo.add(recipe.getIngredients());
                 recipeInfo.add(recipe.getSteps());
-                recipeInfo.add(recipe.getUploadDate().toString());
 
                 Intent intent = new Intent(view.getContext(), RecipeActivity.class);
 
                 intent.putStringArrayListExtra("recipe", recipeInfo);
+                intent.putStringArrayListExtra("comments", recipe.getComments());
+                intent.putExtra("recipeID", recipe.getRecipeID());
+
                 view.getContext().startActivity(intent);
             }
         });

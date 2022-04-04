@@ -2,11 +2,16 @@ package com.bcit.comp3717_recipe_pad;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,24 +31,7 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        DocumentReference docRef = db.collection("recipes").document(user.getUid());
-//
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    Recipe recipe = document.toObject(Recipe.class);
-//                    if (user != null)
-//                        passRecipeData(recipeInfo);
-//                } else {
-//                    Log.d("debug", "No doc");
-//                }
-//            }
-//        });
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Intent intent = getIntent();
 
@@ -51,6 +39,46 @@ public class RecipeActivity extends AppCompatActivity {
 
 //        System.out.println(recipe.getIngredients());
         passRecipeData(recipeInfo);
+
+        ArrayList<String> comments = intent.getStringArrayListExtra("comments");
+
+        String[] arrayComments = new String[comments.size()];
+                 arrayComments = comments.toArray(arrayComments);
+        setupRecyclerView(arrayComments);
+
+        Button submitButton =  findViewById(R.id.button_recipe_submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText editText = findViewById(R.id.editText_recipe_addcomment);
+                String comment = editText.getText().toString();
+                if(comment != null && !comment.isEmpty())
+                {
+                    String recipeID = intent.getStringExtra("recipeID");
+
+                    comments.add(comment);
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("recipes").document(recipeID)
+                            .update("comments", comments).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
+                            {
+                                String[] arrayCommentsNew = new String[comments.size()];
+                                arrayCommentsNew = comments.toArray(arrayCommentsNew);
+                                setupRecyclerView(arrayCommentsNew);
+                            }
+                            else
+                            {
+                                Log.d("add comment", "failed");
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
     }
 
 
@@ -63,7 +91,7 @@ public class RecipeActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.textView_recipe_description);
         TextView ingredients = findViewById(R.id.textView_recipe_ingredients);
         TextView steps = findViewById(R.id.textView_recipe_steps);
-        TextView uploadDate = findViewById(R.id.textView_recipe_uploaddate);
+//        TextView uploadDate = findViewById(R.id.textView_recipe_uploaddate);
 
         recipeName.setText(recipeInfo.get(0));
         likeCount.setText(recipeInfo.get(1));
@@ -72,6 +100,19 @@ public class RecipeActivity extends AppCompatActivity {
         description.setText(recipeInfo.get(4));
         ingredients.setText(recipeInfo.get(5));
         steps.setText(recipeInfo.get(6));
-        uploadDate.setText(recipeInfo.get(7));
+//        uploadDate.setText(recipeInfo.get(7));
+    }
+
+    void setupRecyclerView(String[] comments)
+    {
+        RecyclerView rv = findViewById(R.id.recyclerView_recipe);
+
+        CommentAdapter adapter = new CommentAdapter(comments);
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+
+        TextView numComments = findViewById(R.id.textView_recipe_totalcomments);
+        numComments.setText(comments.length + " comments");
     }
 }

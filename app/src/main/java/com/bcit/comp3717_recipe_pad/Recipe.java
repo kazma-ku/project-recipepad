@@ -7,6 +7,8 @@ import com.google.type.DateTime;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Recipe implements Serializable {
 
@@ -28,6 +30,7 @@ public class Recipe implements Serializable {
     private String recipeID;
     private boolean liked;
     private boolean disliked;
+    private ArrayList<String> comments;
 
     public Recipe(String img, String title, String desc, String ingredients, String steps, String nutrFacts, String userID) {
         this.img = img;
@@ -44,6 +47,7 @@ public class Recipe implements Serializable {
         this.recipeID = "";
         this.liked = false;
         this.disliked = false;
+        this.comments = new ArrayList<>();
     }
 
     public Recipe(String img, String title, String desc, int likesNum, int dislikesNum,
@@ -61,6 +65,7 @@ public class Recipe implements Serializable {
         this.recipeID = "";
         this.liked = false;
         this.disliked = false;
+        this.comments = new ArrayList<>();
     }
 
     public String getUserID() {
@@ -173,5 +178,13 @@ public class Recipe implements Serializable {
 
     public void setDisliked(boolean disliked) {
         this.disliked = disliked;
+    }
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
     }
 }

@@ -5,17 +5,19 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EBF8F7"
+    android:background="#B6DFDD"
     tools:context=".MainFeedActivity">
 
     <TextView
         android:id="@+id/textView_mainfeed_default"
-        android:layout_width="353dp"
-        android:layout_height="29dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="412dp"
+        android:layout_height="25dp"
+        android:background="#BBC0C1"
+        android:gravity="center|center_horizontal"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_mainfeed"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,8 +25,7 @@
         android:id="@+id/recyclerView_mainfeed"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="66dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_mainfeed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_mainfeed_default" />
@@ -33,10 +34,10 @@
         android:id="@+id/bottomNavigationView_mainfeed"
         android:layout_width="0dp"
         android:layout_height="67dp"
-        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_mainfeed"
         app:menu="@menu/menu_bottomnav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
