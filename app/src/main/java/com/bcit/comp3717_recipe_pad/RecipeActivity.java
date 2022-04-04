@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -31,13 +32,12 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Intent intent = getIntent();
-
         ArrayList<String> recipeInfo = intent.getStringArrayListExtra("recipe");
-
-//        System.out.println(recipe.getIngredients());
         passRecipeData(recipeInfo);
 
         ArrayList<String> comments = intent.getStringArrayListExtra("comments");
@@ -177,5 +177,14 @@ public class RecipeActivity extends AppCompatActivity {
 
         TextView numComments = findViewById(R.id.textView_recipe_totalcomments);
         numComments.setText(comments.length + " comments");
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if(item.getItemId() == android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

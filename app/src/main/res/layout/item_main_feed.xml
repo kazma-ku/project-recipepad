@@ -24,6 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_feedItem_username"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -33,7 +34,6 @@
         android:layout_marginStart="28dp"
         android:layout_marginBottom="12dp"
         android:gravity="center"
-        android:text="likes"
         app:layout_constraintBottom_toTopOf="@+id/textView_feeditem_description"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -97,7 +97,6 @@
         android:layout_marginStart="12dp"
         android:layout_marginEnd="85dp"
         android:layout_marginBottom="11dp"
-        android:text="comments"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/textView_feeditem_description"
         app:layout_constraintEnd_toStartOf="@+id/button_feeditem_getRecipe"
@@ -113,7 +112,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="6dp"
         android:gravity="center"
-        android:text="dislikes"
         app:layout_constraintBottom_toTopOf="@+id/textView_feeditem_description"
         app:layout_constraintStart_toEndOf="@+id/textView_feedItem_likeCount"
         app:layout_constraintTop_toBottomOf="@+id/imageView_feeditem_dislikebutton"

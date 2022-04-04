@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBF8F7"
@@ -12,10 +11,11 @@
         android:id="@+id/editText_addrecipe_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
         android:ems="10"
-        android:hint="Description..."
+        android:gravity="bottom"
+        android:hint="@string/description"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColor="#000000"
@@ -24,12 +24,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_addrecipe_title" />
 
+    <TextView
+        android:id="@+id/textView_addrecipe_upload"
+        android:layout_width="337dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="21dp"
+        android:gravity="center"
+        android:text="Click the icon above to upload a photo"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_addrecipe_uploadimage" />
+
     <ImageView
         android:id="@+id/imageView_addrecipe_uploadimage"
         android:layout_width="136dp"
         android:layout_height="0dp"
         android:contentDescription="@string/upload_images"
-        app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_title"
+        app:layout_constraintBottom_toTopOf="@+id/textView_addrecipe_upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,9 +52,11 @@
         android:id="@+id/editText_addrecipe_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
+        android:gravity="bottom"
         android:hint="@string/title"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -49,15 +64,17 @@
         app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_addrecipe_uploadimage" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_addrecipe_upload" />
 
     <EditText
         android:id="@+id/editText_addrecipe_ingredients"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="1dp"
         android:ems="10"
+        android:gravity="bottom"
         android:hint="@string/ingredients"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -71,16 +88,14 @@
         android:id="@+id/editText_addrecipe_steps"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="37dp"
         android:ems="10"
-        android:gravity="top"
+        android:gravity="bottom"
         android:hint="@string/steps"
         android:inputType="textPersonName"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/editText_addrecipe_nutritionalfacts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editText_addrecipe_nutritionalfacts"
+        app:layout_constraintStart_toStartOf="@+id/editText_addrecipe_ingredients"
         app:layout_constraintTop_toBottomOf="@+id/editText_addrecipe_ingredients" />
 
     <EditText
@@ -90,7 +105,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginEnd="36dp"
         android:ems="10"
-        android:gravity="top"
+        android:gravity="bottom"
         android:hint="@string/nutritional_facts"
         android:inputType="textPersonName"
         android:textColor="#000000"
@@ -115,10 +130,21 @@
         android:id="@+id/bottomNavigationView_addrecipe"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_addrecipe_upload"
         app:menu="@menu/menu_bottomnav" />
+
+    <TextView
+        android:id="@+id/textView_addrecipe_warning"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:gravity="center"
+        android:text="@string/recipe_must_have_a_photo"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/editText_addrecipe_title"
+        app:layout_constraintStart_toStartOf="@+id/editText_addrecipe_title"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addrecipe_upload" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
