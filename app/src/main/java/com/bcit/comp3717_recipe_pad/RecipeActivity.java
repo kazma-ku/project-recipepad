@@ -79,6 +79,69 @@ public class RecipeActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button followUser = findViewById(R.id.button_recipe_followuser);
+
+        String userID = intent.getStringExtra("userID");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DocumentReference docRef = db.collection("users").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    User document = task.getResult().toObject(User.class);
+                    ArrayList<String> followingList = (ArrayList<String>) document.getFollowingList();
+
+                    if(followingList.contains(userID))
+                    {
+                        followUser.setText("Unfollow This User");
+                    }
+                }
+                else
+                {
+                    Log.d("get following list", "failed");
+                }
+            }
+        });
+
+        followUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            User document = task.getResult().toObject(User.class);
+                            ArrayList<String> followingList = (ArrayList<String>) document.getFollowingList();
+
+                            if(!followingList.contains(userID))
+                            {
+                                followingList.add(userID);
+                                db.collection("users").document(user.getUid())
+                                        .update("followingList", followingList);
+                                followUser.setText("Unfollow This User");
+                            }
+                            else
+                            {
+                                followingList.remove(userID);
+                                db.collection("users").document(user.getUid())
+                                        .update("followingList", followingList);
+                                followUser.setText("Follow This User");
+                            }
+                        }
+                        else
+                        {
+                            Log.d("get following list", "failed");
+                        }
+                    }
+                });
+            }
+        });
     }
 
 

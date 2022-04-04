@@ -105,6 +105,7 @@ public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyc
                 intent.putStringArrayListExtra("recipe", recipeInfo);
                 intent.putStringArrayListExtra("comments", recipe.getComments());
                 intent.putExtra("recipeID", recipe.getRecipeID());
+                intent.putExtra("userID", recipe.getUserID());
 
                 view.getContext().startActivity(intent);
             }

@@ -291,6 +291,7 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                 intent.putStringArrayListExtra("recipe", recipeInfo);
                 intent.putStringArrayListExtra("comments", recipe.getComments());
                 intent.putExtra("recipeID", recipe.getRecipeID());
+                intent.putExtra("userID", recipe.getUserID());
 
                 view.getContext().startActivity(intent);
             }
