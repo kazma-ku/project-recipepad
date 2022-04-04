@@ -1,6 +1,8 @@
 package com.bcit.comp3717_recipe_pad;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -112,8 +118,24 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        //needs to be updates when we figure out images
-        viewHolder.getImg().setImageResource(R.drawable._35_8354885_macaroni_and_cheese_clipart_transparent_frozen_mac_and);
+
+        String foodImg = recipes[position].getImg();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imagesRef = storageRef.child(foodImg);
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                viewHolder.getImg().setImageBitmap(bmp);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.d("debug", "unsuccess");
+            }
+        });
 
         //displays title instead of username for now
         viewHolder.getUsername().setText(recipes[position].getTitle());
