@@ -147,6 +147,7 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                     });
 
                     recipes[viewHolder.getAdapterPosition()].setLiked(true);
+                    viewHolder.likeButton.setImageResource(R.drawable.ic_baseline_thumb_up_green24);
 
                     if (recipes[viewHolder.getAdapterPosition()].isDisliked())
                     {
@@ -168,12 +169,11 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                         });
 
                         recipes[viewHolder.getAdapterPosition()].setDisliked(false);
+                        viewHolder.dislikeButton.setImageResource(R.drawable.ic_baseline_thumb_down_24);
                     }
                 }
                 else
                 {
-//                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
                     int oldCount = Integer.valueOf(viewHolder.getLikes().getText().toString());
                     oldCount--;
                     int finalCount = oldCount;
@@ -192,6 +192,7 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                     });
 
                     recipes[viewHolder.getAdapterPosition()].setLiked(false);
+                    viewHolder.likeButton.setImageResource(R.drawable.ic_baseline_thumb_up_24);
                 }
             }
         });
@@ -219,6 +220,7 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                     });
 
                     recipes[viewHolder.getAdapterPosition()].setDisliked(true);
+                    viewHolder.dislikeButton.setImageResource(R.drawable.ic_baseline_thumb_down_red24);
 
                     if (recipes[viewHolder.getAdapterPosition()].isLiked())
                     {
@@ -240,6 +242,7 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                         });
 
                         recipes[viewHolder.getAdapterPosition()].setLiked(false);
+                        viewHolder.likeButton.setImageResource(R.drawable.ic_baseline_thumb_up_24);
                     }
 
                 }
@@ -263,6 +266,7 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
                     });
 
                     recipes[viewHolder.getAdapterPosition()].setDisliked(false);
+                    viewHolder.dislikeButton.setImageResource(R.drawable.ic_baseline_thumb_down_24);
                 }
 
             }
