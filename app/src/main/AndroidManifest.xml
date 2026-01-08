@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bcit.comp3717_recipe_pad">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -12,8 +11,8 @@
         android:theme="@style/Theme.COMP3717_recipe_pad">
         <activity
             android:name=".RecipeActivity"
-            android:exported="false" />
-        android:windowSoftInputMode="adjustPan"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />

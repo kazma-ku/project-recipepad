@@ -45,10 +45,18 @@ public class SignupActivity extends AppCompatActivity {
         EditText email = findViewById(R.id.editText_signup_email);
         EditText password = findViewById(R.id.editText_signup_password);
 
+        String usernameText = username.getText().toString().trim();
+        String emailText = email.getText().toString().trim();
+        String passwordText = password.getText().toString().trim();
+
+        if (usernameText.isEmpty() || emailText.isEmpty() || passwordText.isEmpty()) {
+            Toast.makeText(SignupActivity.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mAuth = FirebaseAuth.getInstance();
 
-
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+        mAuth.createUserWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -63,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
                                     }
                                     else {
                                         Log.d("debug", firebaseAuth.getCurrentUser().getUid());
-                                        DataHandler.addUser(new User(username.getText().toString(), email.getText().toString()),
+                                        DataHandler.addUser(new User(usernameText, emailText),
                                                 firebaseAuth.getCurrentUser().getUid());
                                     }
                                 }
@@ -76,7 +84,8 @@ public class SignupActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("debug", "createUserWithEmail:failure", task.getException());
-                            //display failure message
+                            Toast.makeText(SignupActivity.this, "Sign up failed. Please try again.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
