@@ -94,10 +94,10 @@ public class TrendingActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.item_actionbar_loadmockdata)
         {
-            DataHandler.addMockData();
+            DataHandler.addMockData(this);
             Toast.makeText(this, R.string.mock_data_loaded, Toast.LENGTH_SHORT).show();
-            // Refresh the activity to show new data
-            recreate();
+            // Delay refresh to allow uploads to complete
+            new android.os.Handler().postDelayed(this::recreate, 2000);
         }
 
         return super.onOptionsItemSelected(item);
