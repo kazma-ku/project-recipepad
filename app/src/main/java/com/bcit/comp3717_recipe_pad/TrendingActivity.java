@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -90,6 +91,13 @@ public class TrendingActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.item_actionbar_loadmockdata)
+        {
+            DataHandler.addMockData();
+            Toast.makeText(this, R.string.mock_data_loaded, Toast.LENGTH_SHORT).show();
+            // Refresh the activity to show new data
+            recreate();
         }
 
         return super.onOptionsItemSelected(item);

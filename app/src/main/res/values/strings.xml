@@ -44,4 +44,6 @@
     <string name="description">Description...</string>
     <string name="upload">Upload</string>
     <string name="add">Add</string>
+    <string name="load_mock_data">Load Mock Data</string>
+    <string name="mock_data_loaded">Mock recipes added!</string>
 </resources>

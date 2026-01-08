@@ -28,6 +28,99 @@ import java.util.concurrent.TimeUnit;
 
 public class DataHandler {
 
+    public static void addMockData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Log.w("debug", "No user logged in, cannot add mock data");
+            return;
+        }
+
+        String userID = user.getUid();
+
+        Recipe[] mockRecipes = {
+            new Recipe(
+                "images/placeholder.jpg",
+                "Classic Spaghetti Carbonara",
+                "A creamy Italian pasta dish with eggs, cheese, and pancetta",
+                "400g spaghetti\n200g pancetta\n4 eggs\n100g parmesan\n2 cloves garlic\nSalt and pepper",
+                "1. Cook spaghetti according to package\n2. Fry pancetta until crispy\n3. Beat eggs with parmesan\n4. Toss hot pasta with pancetta\n5. Remove from heat and mix in egg mixture\n6. Season and serve",
+                "Calories: 650\nProtein: 25g\nCarbs: 75g\nFat: 28g",
+                userID
+            ),
+            new Recipe(
+                "images/placeholder.jpg",
+                "Chicken Teriyaki Bowl",
+                "Japanese-style glazed chicken over rice with vegetables",
+                "500g chicken thigh\n2 cups rice\n1/2 cup soy sauce\n1/4 cup mirin\n2 tbsp sugar\nBroccoli\nCarrots",
+                "1. Cook rice\n2. Mix soy sauce, mirin, and sugar for sauce\n3. Grill chicken and glaze with sauce\n4. Steam vegetables\n5. Assemble bowl with rice, chicken, and veggies",
+                "Calories: 580\nProtein: 35g\nCarbs: 65g\nFat: 18g",
+                userID
+            ),
+            new Recipe(
+                "images/placeholder.jpg",
+                "Avocado Toast with Poached Eggs",
+                "Trendy breakfast with creamy avocado and perfectly poached eggs",
+                "2 slices sourdough bread\n1 ripe avocado\n2 eggs\nChili flakes\nLemon juice\nSalt",
+                "1. Toast bread until golden\n2. Mash avocado with lemon and salt\n3. Poach eggs in simmering water\n4. Spread avocado on toast\n5. Top with poached eggs and chili flakes",
+                "Calories: 420\nProtein: 16g\nCarbs: 32g\nFat: 26g",
+                userID
+            ),
+            new Recipe(
+                "images/placeholder.jpg",
+                "Beef Tacos",
+                "Authentic Mexican street tacos with seasoned ground beef",
+                "500g ground beef\n8 corn tortillas\n1 onion\n2 tomatoes\nCilantro\nLime\nTaco seasoning",
+                "1. Brown ground beef with seasoning\n2. Warm tortillas\n3. Dice onion, tomatoes, and cilantro\n4. Assemble tacos with beef and toppings\n5. Squeeze lime on top",
+                "Calories: 380\nProtein: 22g\nCarbs: 28g\nFat: 20g",
+                userID
+            ),
+            new Recipe(
+                "images/placeholder.jpg",
+                "Vegetable Stir Fry",
+                "Quick and healthy Asian vegetable stir fry with tofu",
+                "400g firm tofu\n2 cups mixed vegetables\n3 tbsp soy sauce\n1 tbsp sesame oil\nGinger\nGarlic",
+                "1. Press and cube tofu\n2. Stir fry tofu until golden\n3. Add vegetables and cook until tender-crisp\n4. Add sauce and toss\n5. Serve over rice or noodles",
+                "Calories: 320\nProtein: 18g\nCarbs: 25g\nFat: 16g",
+                userID
+            ),
+            new Recipe(
+                "images/placeholder.jpg",
+                "Chocolate Chip Cookies",
+                "Classic homemade cookies that are crispy outside and chewy inside",
+                "2 1/4 cups flour\n1 cup butter\n3/4 cup sugar\n3/4 cup brown sugar\n2 eggs\n1 tsp vanilla\n2 cups chocolate chips",
+                "1. Cream butter and sugars\n2. Add eggs and vanilla\n3. Mix in flour gradually\n4. Fold in chocolate chips\n5. Bake at 375F for 10-12 minutes",
+                "Calories: 180 per cookie\nProtein: 2g\nCarbs: 24g\nFat: 9g",
+                userID
+            )
+        };
+
+        // Set some likes/dislikes to make it interesting
+        mockRecipes[0].setLikesNum(42);
+        mockRecipes[0].setDislikesNum(3);
+        mockRecipes[1].setLikesNum(38);
+        mockRecipes[1].setDislikesNum(5);
+        mockRecipes[2].setLikesNum(56);
+        mockRecipes[2].setDislikesNum(8);
+        mockRecipes[3].setLikesNum(29);
+        mockRecipes[3].setDislikesNum(2);
+        mockRecipes[4].setLikesNum(21);
+        mockRecipes[4].setDislikesNum(4);
+        mockRecipes[5].setLikesNum(67);
+        mockRecipes[5].setDislikesNum(1);
+
+        for (Recipe recipe : mockRecipes) {
+            db.collection("recipes")
+                .add(recipe)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("debug", "Mock recipe added: " + recipe.getTitle());
+                })
+                .addOnFailureListener(e -> {
+                    Log.w("debug", "Error adding mock recipe", e);
+                });
+        }
+    }
 
     public static void addUser(User newUser, String userId) {
 

@@ -12,4 +12,7 @@
         android:id="@+id/item_actionbar_helpsupport"
         android:icon="@drawable/ic_baseline_help_24"
         android:title="@string/help_and_support" />
+    <item
+        android:id="@+id/item_actionbar_loadmockdata"
+        android:title="@string/load_mock_data" />
 </menu>
