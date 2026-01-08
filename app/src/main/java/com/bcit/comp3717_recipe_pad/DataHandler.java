@@ -29,7 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -106,47 +108,127 @@ public class DataHandler {
         int[] likes = {42, 38, 56, 29, 21, 67};
         int[] dislikes = {3, 5, 8, 2, 4, 1};
 
-        // Upload each image and create recipe
-        for (int i = 0; i < imageResIds.length; i++) {
-            final int index = i;
-            String imagePath = "foods/" + UUID.randomUUID() + ".jpeg";
-            StorageReference imageRef = storageRef.child(imagePath);
+        // Check for existing mock recipes and only add ones that don't exist
+        List<String> titleList = java.util.Arrays.asList(titles);
+        db.collection("recipes")
+            .whereIn("title", titleList)
+            .get()
+            .addOnSuccessListener(querySnapshot -> {
+                // Collect existing titles
+                List<String> existingTitles = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : querySnapshot) {
+                    String title = doc.getString("title");
+                    if (title != null) {
+                        existingTitles.add(title);
+                    }
+                }
 
-            // Load bitmap from drawable
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageResIds[i]);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-            byte[] data = baos.toByteArray();
+                // Upload each image and create recipe only if it doesn't exist
+                for (int i = 0; i < imageResIds.length; i++) {
+                    if (existingTitles.contains(titles[i])) {
+                        Log.d("debug", "Mock recipe already exists, skipping: " + titles[i]);
+                        continue;
+                    }
 
-            // Upload image then create recipe
-            imageRef.putBytes(data).addOnSuccessListener(taskSnapshot -> {
-                Log.d("debug", "Image uploaded: " + imagePath);
+                    final int index = i;
+                    String imagePath = "foods/" + UUID.randomUUID() + ".jpeg";
+                    StorageReference imageRef = storageRef.child(imagePath);
 
-                // Create recipe with uploaded image path
-                Recipe recipe = new Recipe(
-                    imagePath,
-                    titles[index],
-                    descriptions[index],
-                    ingredients[index],
-                    steps[index],
-                    nutrFacts[index],
-                    userID
-                );
-                recipe.setLikesNum(likes[index]);
-                recipe.setDislikesNum(dislikes[index]);
+                    // Load bitmap from drawable
+                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageResIds[i]);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    byte[] data = baos.toByteArray();
 
-                db.collection("recipes")
-                    .add(recipe)
-                    .addOnSuccessListener(documentReference -> {
-                        Log.d("debug", "Mock recipe added: " + titles[index]);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.w("debug", "Error adding mock recipe", e);
+                    // Upload image then create recipe
+                    imageRef.putBytes(data).addOnSuccessListener(taskSnapshot -> {
+                        Log.d("debug", "Image uploaded: " + imagePath);
+
+                        // Create recipe with uploaded image path
+                        Recipe recipe = new Recipe(
+                            imagePath,
+                            titles[index],
+                            descriptions[index],
+                            ingredients[index],
+                            steps[index],
+                            nutrFacts[index],
+                            userID
+                        );
+                        recipe.setLikesNum(likes[index]);
+                        recipe.setDislikesNum(dislikes[index]);
+
+                        db.collection("recipes")
+                            .add(recipe)
+                            .addOnSuccessListener(documentReference -> {
+                                Log.d("debug", "Mock recipe added: " + titles[index]);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w("debug", "Error adding mock recipe", e);
+                            });
+                    }).addOnFailureListener(e -> {
+                        Log.w("debug", "Error uploading image", e);
                     });
-            }).addOnFailureListener(e -> {
-                Log.w("debug", "Error uploading image", e);
+                }
+            })
+            .addOnFailureListener(e -> {
+                Log.w("debug", "Error checking existing recipes", e);
             });
-        }
+    }
+
+    public static void deleteDuplicateRecipes() {
+        Log.d("debug", "Starting duplicate recipe cleanup...");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        db.collection("recipes")
+            .get()
+            .addOnSuccessListener(querySnapshot -> {
+                Log.d("debug", "Fetched " + querySnapshot.size() + " total recipes");
+                Map<String, String> seenTitles = new HashMap<>();
+                List<QueryDocumentSnapshot> duplicates = new ArrayList<>();
+
+                for (QueryDocumentSnapshot doc : querySnapshot) {
+                    String title = doc.getString("title");
+                    if (title != null) {
+                        if (seenTitles.containsKey(title)) {
+                            duplicates.add(doc);
+                            Log.d("debug", "Found duplicate: " + title);
+                        } else {
+                            seenTitles.put(title, doc.getId());
+                        }
+                    }
+                }
+
+                Log.d("debug", "Found " + duplicates.size() + " duplicate recipes to delete");
+
+                for (QueryDocumentSnapshot duplicate : duplicates) {
+                    String imagePath = duplicate.getString("img");
+                    String docId = duplicate.getId();
+
+                    // Delete the document
+                    db.collection("recipes").document(docId).delete()
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d("debug", "Deleted duplicate recipe: " + duplicate.getString("title"));
+
+                            // Also delete the image from storage if it exists
+                            if (imagePath != null && !imagePath.isEmpty()) {
+                                storage.getReference().child(imagePath).delete()
+                                    .addOnSuccessListener(aVoid2 -> {
+                                        Log.d("debug", "Deleted image: " + imagePath);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("debug", "Failed to delete image: " + imagePath, e);
+                                    });
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.w("debug", "Failed to delete duplicate recipe", e);
+                        });
+                }
+            })
+            .addOnFailureListener(e -> {
+                Log.w("debug", "Error fetching recipes for duplicate check", e);
+            });
     }
 
     public static void addUser(User newUser, String userId) {
