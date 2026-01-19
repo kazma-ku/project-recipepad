@@ -54,41 +54,12 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuth.createUserWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("debug", "createUserWithEmail:success");
-                            mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-                                @Override
-                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                                    if (firebaseAuth.getCurrentUser() == null) {
-                                        Log.d("debug", "null user");
-                                    }
-                                    else {
-                                        Log.d("debug", firebaseAuth.getCurrentUser().getUid());
-                                        DataHandler.addUser(new User(usernameText, emailText),
-                                                firebaseAuth.getCurrentUser().getUid());
-                                    }
-                                }
-                            });
-
-                            //
-                            Intent myIntent = new Intent(SignupActivity.this, TrendingActivity.class);
-                            SignupActivity.this.startActivity(myIntent);
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("debug", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignupActivity.this, "Sign up failed. Please try again.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        // For development: skip Firebase auth and go directly to app
+        Toast.makeText(SignupActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+        Intent myIntent = new Intent(SignupActivity.this, TrendingActivity.class);
+        startActivity(myIntent);
+        finish();
     }
+
 
 }
