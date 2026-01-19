@@ -22,6 +22,7 @@ public class TrendingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
+
         DataHandler.getTrending(new OnSuccess() {
             @Override
             public void onData(Recipe[] recipes) {
@@ -31,7 +32,7 @@ public class TrendingActivity extends AppCompatActivity {
                 }
                 setupRecyclerView(recipes);
             }
-        });
+        }, this);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_trending);
@@ -96,8 +97,7 @@ public class TrendingActivity extends AppCompatActivity {
         {
             DataHandler.addMockData(this);
             Toast.makeText(this, R.string.mock_data_loaded, Toast.LENGTH_SHORT).show();
-            // Delay refresh to allow uploads to complete
-            new android.os.Handler().postDelayed(this::recreate, 2000);
+            recreate();
         }
 
         return super.onOptionsItemSelected(item);

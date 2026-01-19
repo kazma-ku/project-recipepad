@@ -118,24 +118,31 @@ public class MainFeedRecyclerActivity extends RecyclerView.Adapter<com.bcit.comp
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-
         String foodImg = recipes[position].getImg();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imagesRef = storageRef.child(foodImg);
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                viewHolder.getImg().setImageBitmap(bmp);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("debug", "unsuccess");
-            }
-        });
+        // Check if foodImg is a drawable resource ID (numeric string)
+        try {
+            int resId = Integer.parseInt(foodImg);
+            viewHolder.getImg().setImageResource(resId);
+        } catch (NumberFormatException e) {
+            // Fall back to Firebase Storage for non-mock data
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference imagesRef = storageRef.child(foodImg);
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    viewHolder.getImg().setImageBitmap(bmp);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("debug", "unsuccess");
+                }
+            });
+        }
 
         //displays title instead of username for now
         viewHolder.getUsername().setText(recipes[position].getTitle());

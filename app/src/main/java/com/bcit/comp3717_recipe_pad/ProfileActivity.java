@@ -34,27 +34,17 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // Use mock user data
+        User mockUser = DataHandler.getMockUser();
+        passUserData(mockUser);
 
-        DocumentReference docRef = db.collection("users").document(user.getUid());
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        // Use mock recipes for profile
+        DataHandler.getProfileRecipes(new OnSuccess() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    User user = document.toObject(User.class);
-                    if (user != null)
-                    passUserData(user);
-                } else {
-                    Log.d("debug", "No doc");
-                }
+            public void onData(Recipe[] recipes) {
+                setupRecyclerView(recipes);
             }
-        });
-
-
-        setupRecyclerData();
+        }, this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_profile);
         bottomNavigationView.setSelectedItemId(R.id.item_bottomnav_profile);

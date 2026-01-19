@@ -39,7 +39,7 @@ public class MainFeedActivity extends AppCompatActivity {
                 }
                 setupRecyclerView(recipes);
             }
-        });
+        }, this);
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_mainfeed);

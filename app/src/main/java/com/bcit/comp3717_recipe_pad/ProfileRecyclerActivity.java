@@ -84,22 +84,31 @@ public class ProfileRecyclerActivity extends RecyclerView.Adapter<ProfileRecycle
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         String foodImg = recipes[position].getImg();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imagesRef = storageRef.child(foodImg);
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                viewHolder.getImg().setImageBitmap(bmp);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("debug", "unsuccess");
-            }
-        });
+        // Check if foodImg is a drawable resource ID (numeric string)
+        try {
+            int resId = Integer.parseInt(foodImg);
+            viewHolder.getImg().setImageResource(resId);
+        } catch (NumberFormatException e) {
+            // Fall back to Firebase Storage for non-mock data
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference imagesRef = storageRef.child(foodImg);
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            imagesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    viewHolder.getImg().setImageBitmap(bmp);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("debug", "unsuccess");
+                }
+            });
+        }
+
         viewHolder.getTitle().setText(recipes[position].getTitle());
         viewHolder.getDesc().setText(recipes[position].getDesc());
         viewHolder.getLikes().setText(String.valueOf(recipes[position].getLikesNum()));

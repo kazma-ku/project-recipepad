@@ -37,18 +37,15 @@ import java.util.concurrent.TimeUnit;
 
 public class DataHandler {
 
-    public static void addMockData(Context context) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    // Local mock data storage
+    private static List<Recipe> mockRecipes = new ArrayList<>();
+    private static boolean mockDataLoaded = false;
 
-        if (user == null) {
-            Log.w("debug", "No user logged in, cannot add mock data");
+    public static void addMockData(Context context) {
+        if (mockDataLoaded) {
+            Log.d("debug", "Mock data already loaded");
             return;
         }
-
-        String userID = user.getUid();
 
         // Define mock recipe data with drawable resource IDs
         int[] imageResIds = {
@@ -108,71 +105,32 @@ public class DataHandler {
         int[] likes = {42, 38, 56, 29, 21, 67};
         int[] dislikes = {3, 5, 8, 2, 4, 1};
 
-        // Check for existing mock recipes and only add ones that don't exist
-        List<String> titleList = java.util.Arrays.asList(titles);
-        db.collection("recipes")
-            .whereIn("title", titleList)
-            .get()
-            .addOnSuccessListener(querySnapshot -> {
-                // Collect existing titles
-                List<String> existingTitles = new ArrayList<>();
-                for (QueryDocumentSnapshot doc : querySnapshot) {
-                    String title = doc.getString("title");
-                    if (title != null) {
-                        existingTitles.add(title);
-                    }
-                }
+        // Create mock recipes with drawable resource IDs as image paths
+        for (int i = 0; i < titles.length; i++) {
+            Recipe recipe = new Recipe(
+                String.valueOf(imageResIds[i]),
+                titles[i],
+                descriptions[i],
+                ingredients[i],
+                steps[i],
+                nutrFacts[i],
+                "mock_user"
+            );
+            recipe.setLikesNum(likes[i]);
+            recipe.setDislikesNum(dislikes[i]);
+            mockRecipes.add(recipe);
+            Log.d("debug", "Mock recipe added: " + titles[i]);
+        }
 
-                // Upload each image and create recipe only if it doesn't exist
-                for (int i = 0; i < imageResIds.length; i++) {
-                    if (existingTitles.contains(titles[i])) {
-                        Log.d("debug", "Mock recipe already exists, skipping: " + titles[i]);
-                        continue;
-                    }
+        mockDataLoaded = true;
+    }
 
-                    final int index = i;
-                    String imagePath = "foods/" + UUID.randomUUID() + ".jpeg";
-                    StorageReference imageRef = storageRef.child(imagePath);
+    public static List<Recipe> getMockRecipes() {
+        return mockRecipes;
+    }
 
-                    // Load bitmap from drawable
-                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageResIds[i]);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-                    byte[] data = baos.toByteArray();
-
-                    // Upload image then create recipe
-                    imageRef.putBytes(data).addOnSuccessListener(taskSnapshot -> {
-                        Log.d("debug", "Image uploaded: " + imagePath);
-
-                        // Create recipe with uploaded image path
-                        Recipe recipe = new Recipe(
-                            imagePath,
-                            titles[index],
-                            descriptions[index],
-                            ingredients[index],
-                            steps[index],
-                            nutrFacts[index],
-                            userID
-                        );
-                        recipe.setLikesNum(likes[index]);
-                        recipe.setDislikesNum(dislikes[index]);
-
-                        db.collection("recipes")
-                            .add(recipe)
-                            .addOnSuccessListener(documentReference -> {
-                                Log.d("debug", "Mock recipe added: " + titles[index]);
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.w("debug", "Error adding mock recipe", e);
-                            });
-                    }).addOnFailureListener(e -> {
-                        Log.w("debug", "Error uploading image", e);
-                    });
-                }
-            })
-            .addOnFailureListener(e -> {
-                Log.w("debug", "Error checking existing recipes", e);
-            });
+    public static boolean isMockDataLoaded() {
+        return mockDataLoaded;
     }
 
     public static void deleteDuplicateRecipes() {
@@ -335,95 +293,72 @@ public class DataHandler {
 //
 //    }
 
-    public static void getTrending(OnSuccess o) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static void getTrending(OnSuccess o, Context context) {
+        // Auto-load mock data if not loaded yet
+        if (!mockDataLoaded && context != null) {
+            addMockData(context);
+        }
 
-        Date threeDaysAgo = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(3));
+        // Use local mock data instead of Firestore
+        List<Recipe> recipes = new ArrayList<>(mockRecipes);
 
-        Timestamp cutOff = new Timestamp(threeDaysAgo);
+        // Sort by likes (descending)
+        recipes.sort((r1, r2) -> Integer.compare(r2.getLikesNum(), r1.getLikesNum()));
 
-        List<Recipe> recipes = new ArrayList<>();
-
-        Log.d("before", "made it");
-
-        db.collection("recipes")
-                .whereGreaterThan("uploadDate", cutOff)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                Log.d("RecipeGet", documentSnapshot.getId().toString());
-                                recipes.add(documentSnapshot.toObject(Recipe.class));
-
-                            }
-                        } else {
-                            Log.d("else", "not success");
-                        }
-                        recipes.sort(Comparator.comparingInt(Recipe::getLikesNum));
-                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
-//                        setupRecyclerView(sorted);
-                        o.onData(sorted);
-
-                    }
-                });
-
-
+        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
+        o.onData(sorted);
     }
 
-    public static void getFeed(OnSuccess o) {
+    // Overload for backward compatibility
+    public static void getTrending(OnSuccess o) {
+        getTrending(o, null);
+    }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String userID = user.getUid();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        List<Recipe> recipes = new ArrayList<>();
+    public static void getFeed(OnSuccess o, Context context) {
+        // Auto-load mock data if not loaded yet
+        if (!mockDataLoaded && context != null) {
+            addMockData(context);
+        }
 
-        Log.d("before", "made it");
+        // Use local mock data instead of Firestore
+        List<Recipe> recipes = new ArrayList<>(mockRecipes);
 
-        DocumentReference docRef = db.collection("users").document(userID);
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    User document = task.getResult().toObject(User.class);
-                    List<String> followingList = document.getFollowingList();
-
-                    if (followingList.isEmpty()) {
-                        o.onData(recipes.toArray(new Recipe[0]));
-                    } else {
-
-                        db.collection("recipes")
-                                .whereIn("userID", followingList).get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                                Log.d("RecipeGetFeed", documentSnapshot.getId().toString());
-                                                recipes.add(documentSnapshot.toObject(Recipe.class));
-
-                                            }
-                                        } else {
-                                            Log.d("else", "not success");
-                                        }
-
-                                        Comparator<Recipe> uploadsOrder =
-                                                (r1, r2) -> {
-                                                    return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
-                                                };
-                                        recipes.sort(uploadsOrder);
-                                        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
-//                        setupRecyclerView(sorted); now is done through passing to onData below
-                                        o.onData(sorted);
-
-                                    }
-                                });
-                    }
-                }
+        // Sort by upload date (descending) - newest first
+        recipes.sort((r1, r2) -> {
+            if (r1.getUploadDate() == null || r2.getUploadDate() == null) {
+                return 0;
             }
+            return r2.getUploadDate().toDate().compareTo(r1.getUploadDate().toDate());
         });
+
+        Recipe[] sorted = recipes.toArray(new Recipe[recipes.size()]);
+        o.onData(sorted);
+    }
+
+    // Overload for backward compatibility
+    public static void getFeed(OnSuccess o) {
+        getFeed(o, null);
+    }
+
+    public static void getProfileRecipes(OnSuccess o, Context context) {
+        // Auto-load mock data if not loaded yet
+        if (!mockDataLoaded && context != null) {
+            addMockData(context);
+        }
+
+        // Return mock recipes as user's own recipes
+        List<Recipe> recipes = new ArrayList<>(mockRecipes);
+
+        Recipe[] result = recipes.toArray(new Recipe[recipes.size()]);
+        o.onData(result);
+    }
+
+    public static User getMockUser() {
+        User mockUser = new User();
+        mockUser.setUsername("MockUser");
+        mockUser.setFollowerCount(128);
+        mockUser.setFollowingCount(45);
+        return mockUser;
     }
 }
 
