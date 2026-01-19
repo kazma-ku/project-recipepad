@@ -4,63 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EBF8F7"
+    android:background="@color/background"
     tools:context=".TrendingActivity">
 
-
-    <EditText
-        android:id="@+id/editText_trending_search"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="@string/search"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textColor="#AEAEAE"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_trending_search"
+    <!-- Search Bar -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/background_card"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_baseline_search_24"
+                app:tint="@color/text_hint" />
+
+            <EditText
+                android:id="@+id/editText_trending_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/search"
+                android:inputType="text"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Hidden search button for compatibility -->
     <ImageButton
         android:id="@+id/imageButton_trending_search"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_search_24"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-
+    <!-- Section Header -->
     <TextView
         android:id="@+id/textView_trending_trendingrecipes"
-        android:layout_width="385dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="4dp"
-        android:gravity="left"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="16dp"
         android:text="@string/trending_recipes"
-        android:textSize="20sp"
+        android:textColor="@color/text_primary"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_trending_search" />
+        app:layout_constraintTop_toBottomOf="@+id/card_search" />
 
+    <!-- Recipe List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reyclerView_trending"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_trending"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_trending_trendingrecipes">
+        app:layout_constraintTop_toBottomOf="@+id/textView_trending_trendingrecipes" />
 
-    </androidx.recyclerview.widget.RecyclerView>
-
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_trending"
-        android:layout_width="wrap_content"
-        android:layout_height="67dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

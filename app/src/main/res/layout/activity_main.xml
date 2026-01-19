@@ -4,84 +4,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EBF8F7"
+    android:background="@color/background"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:padding="24dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView_main_recipepad"
+    <!-- App Logo/Title -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="97dp"
-        android:layout_marginVertical="40dp"
-        android:background="@color/button_blue"
-        android:gravity="center"
-        android:text="@string/recipepad"
-        android:textSize="34sp"
-        android:textStyle="bold|italic" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/primary">
 
-    <EditText
-        android:id="@+id/editText_main_username"
-        android:layout_width="361dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#AEAEAE"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textPersonName"
-        android:textColor="#AEAEAE" />
+        <TextView
+            android:id="@+id/textView_main_recipepad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="32dp"
+            android:text="@string/recipepad"
+            android:textColor="@color/text_on_primary"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <EditText
-        android:id="@+id/editText_main_password"
-        android:layout_width="361dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#AEAEAE"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textColor="#AEAEAE" />
+    <!-- Email Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_main_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Password Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_main_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Error Message -->
     <TextView
         android:id="@+id/textView_main_incorrectlogin"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#BF1D56" />
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/error"
+        android:textSize="14sp" />
 
-    <Button
+    <!-- Login Button -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_main_login"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:layout_marginVertical="10dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/login"
-        android:textSize="20sp" />
+        android:textSize="18sp"
+        app:cornerRadius="12dp" />
 
+    <!-- Forgot Password -->
     <TextView
         android:id="@+id/textView_main_forgotpassword"
-        android:layout_width="355dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="8dp"
         android:text="@string/forgot_password"
-        android:textColor="#1DA2BF" />
+        android:textColor="@color/primary" />
 
+    <!-- Spacer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Sign Up Section -->
     <TextView
         android:id="@+id/textView_main_donthaveaccount"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
         android:text="@string/don_t_have_an_account_signup_here"
-        android:textColor="#000000" />
+        android:textColor="@color/text_secondary" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_main_signup"
-        android:layout_width="357dp"
+        style="@style/Widget.App.Button.Outlined"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
         android:onClick="signUp"
         android:text="@string/sign_up"
-        android:textSize="20sp" />
+        android:textSize="18sp"
+        app:cornerRadius="12dp" />
 
 </LinearLayout>

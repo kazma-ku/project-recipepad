@@ -5,40 +5,54 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B6DFDD"
+    android:background="@color/background"
     tools:context=".MainFeedActivity">
 
-    <TextView
-        android:id="@+id/textView_mainfeed_default"
-        android:layout_width="412dp"
-        android:layout_height="25dp"
-        android:background="#BBC0C1"
-        android:gravity="center|center_horizontal"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView_mainfeed"
+    <!-- Header -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/background_card"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView_mainfeed_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Recipe Feed -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_mainfeed"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_mainfeed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_mainfeed_default" />
+        app:layout_constraintTop_toBottomOf="@+id/card_header" />
 
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_mainfeed"
-        android:layout_width="0dp"
-        android:layout_height="67dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_mainfeed"
         app:menu="@menu/menu_bottomnav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

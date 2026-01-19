@@ -119,12 +119,12 @@ public class ProfileActivity extends AppCompatActivity {
     void passUserData(User u) {
 
         TextView username = findViewById(R.id.textView_profile_username);
-        TextView followers = findViewById(R.id.textView_profile_followers);
-        TextView following = findViewById(R.id.textView_profile_following);
+        TextView followerCount = findViewById(R.id.textView_profile_follower_count);
+        TextView followingCount = findViewById(R.id.textView_profile_following_count);
 
         username.setText(u.getUsername());
-        followers.setText(u.getFollowerCount() + " Followers");
-        following.setText(u.getFollowingCount() + " Following");
+        followerCount.setText(String.valueOf(u.getFollowerCount()));
+        followingCount.setText(String.valueOf(u.getFollowingCount()));
     }
 
     public void changeRecyclerView(View view)
