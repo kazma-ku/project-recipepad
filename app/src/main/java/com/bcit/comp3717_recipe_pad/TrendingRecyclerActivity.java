@@ -45,7 +45,7 @@ public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyc
         private final TextView likes;
         private final TextView dislkes;
         private final TextView comments;
-        private final LinearLayout trendingFeed;
+        private final View trendingFeed;
 
         public ViewHolder(View view) {
             super(view);
@@ -67,7 +67,7 @@ public class TrendingRecyclerActivity extends RecyclerView.Adapter<TrendingRecyc
         public TextView getLikes() { return likes;}
         public TextView getDislkes() { return dislkes;}
         public TextView getComments() { return comments;}
-        public LinearLayout getTrendingFeed() { return trendingFeed;}
+        public View getTrendingFeed() { return trendingFeed;}
 
     }
 
